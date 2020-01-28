@@ -1,0 +1,36 @@
+{
+  "name": "lim011-fe-md-links",
+  "version": "1.0.0",
+  "description": "Node Library that searchs and validates links in markup files ",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vilrodriguez/LIM011-fe-md-links.git"
+  },
+  "keywords": [
+    "javascript",
+    "node.js",
+    "library",
+    "markup",
+    "jest"
+  ],
+  "author": "Vilmarys Rodriguez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vilrodriguez/LIM011-fe-md-links/issues"
+  },
+  "homepage": "https://github.com/vilrodriguez/LIM011-fe-md-links#readme",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.20.0",
+    "jest": "^25.1.0",
+    "stylelint-config-recommended": "^3.0.0"
+  },
+  "dependencies": {
+    "htmlhint": "^0.11.0"
+  }
+}
