@@ -4,7 +4,7 @@
   "description": "Node Library that searchs and validates links in markup files ",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",
