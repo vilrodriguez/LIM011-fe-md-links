@@ -16,3 +16,13 @@ describe('pathIsAbsolute', () => {
     expect(functions.pathIsAbsolute('../README.md')).toBe(false);
   });
 });
+
+describe('resolvePathToAbsolute', () => {
+  it('Should be a function', () => {
+    expect(typeof functions.resolvePathToAbsolute).toBe('function');
+  });
+
+  it('Should receive a relative path and return absolute', () => {
+    expect(functions.resolvePathToAbsolute('./README.md')).toBe('/home/vilmango/Documents/LIM011-fe-md-links/README.md');
+  });
+});
