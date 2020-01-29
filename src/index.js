@@ -1,13 +1,14 @@
 //  Syntax for including Path module in your app
-let filePath = require('path');
+const path = require('path');
 
-const isPathAbsolute = (filePath) =>{
-return console.log('meow');
-};
+// returns a boolean
+const isPathAbsolute = (filePath) =>path.isAbsolute(filePath);
 
 
+// exports module functions to test spec
 const functions ={
 pathIsAbsolute : isPathAbsolute,
+
 
 };
 module.exports = functions;
