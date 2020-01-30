@@ -14,19 +14,10 @@ const isAbsolutePathaFile = (filePath) => {
   const file = stat.isFile();
   return file;
 };
-// 4 & 5 refactor
-const getFileExt = (filePath) => {
-  const ext = path.extname(filePath);
-  if (ext === '.md') {
-    return true;
-  } return false;
-};
-// 4
-const givesFileExt = (filePath) => path.extname(filePath);
 
-// 5
-const isFileExtMarkdown = (fileExt) => {
-  if (fileExt === '.md') {
+// 4 refactor
+const verifyPathExtIsMD = (filePath) => {
+  if (path.extname(filePath) === '.md') {
     return true;
   } return false;
 };
@@ -36,10 +27,6 @@ const functions = {
   pathIsAbsolute: isPathAbsolute,
   resolvePathToAbsolute: relativePathToAbsolute,
   isPathaFile: isAbsolutePathaFile,
-  fileExtension: givesFileExt,
-  verifiesFileExtIsMD: isFileExtMarkdown,
-  getsFileExtMD: getFileExt,
-
+  getsFileExtMD: verifyPathExtIsMD,
 };
-
 module.exports = functions;
