@@ -13,3 +13,4 @@ bin-release/
 *.ipa
 *.apk
 node_modules
+coverage
