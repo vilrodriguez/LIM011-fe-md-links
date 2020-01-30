@@ -21,12 +21,17 @@ const verifyPathExtIsMD = (filePath) => {
     return true;
   } return false;
 };
+// returns files in folder
+const filesInFolder = (filePath) => fs.readdirSync(filePath);
 
+
+/* console.log(filesInFolder('/home/vilmango/Documents/LIM011-fe-md-links/src')); */
 // exports module functions to test spec
 const functions = {
   pathIsAbsolute: isPathAbsolute,
   resolvePathToAbsolute: relativePathToAbsolute,
   isPathaFile: isAbsolutePathaFile,
-  getsFileExtMD: verifyPathExtIsMD,
+  verifyFileIsMarkdown: verifyPathExtIsMD,
+  readFilesInFolder: filesInFolder,
 };
 module.exports = functions;

@@ -39,14 +39,24 @@ describe('isPathaFile', () => {
 });
 
 // refactored function test
-describe('getsFileExtMD', () => {
+describe('verifyFileIsMarkdown', () => {
   it('Should be a function', () => {
-    expect(typeof functions.getsFileExtMD).toBe('function');
+    expect(typeof functions.verifyFileIsMarkdown).toBe('function');
   });
   it('Should return true if file ext is .md', () => {
-    expect(functions.getsFileExtMD('/home/vilmango/Documents/LIM011-fe-md-links/README.md')).toBe(true);
+    expect(functions.verifyFileIsMarkdown('/home/vilmango/Documents/LIM011-fe-md-links/README.md')).toBe(true);
   });
   it('Should return false if file ext is not .md', () => {
-    expect(functions.getsFileExtMD('/home/vilmango/Documents/LIM011-fe-md-links/')).toBe(false);
+    expect(functions.verifyFileIsMarkdown('/home/vilmango/Documents/LIM011-fe-md-links/')).toBe(false);
+  });
+});
+
+describe('readFilesInFolder', () => {
+  it('Should be a function', () => {
+    expect(typeof functions.readFilesInFolder).toBe('function');
+  });
+  it('Should return an array with files in folder', () => {
+    expect(functions.readFilesInFolder('/home/vilmango/Documents/LIM011-fe-md-links/src/'))
+      .toEqual(['cli.js', 'index.js']);
   });
 });
