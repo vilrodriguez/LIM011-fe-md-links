@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+
 const functions = require('../src/index.js');
 // path.isAbsolute(myPath)
 // Test function Is the path absolute?
@@ -35,5 +35,18 @@ describe('isPathaFile', () => {
   });
   it('Should return false if the path is not a File', () => {
     expect(functions.isPathaFile('/home/vilmango/Documents/LIM011-fe-md-links')).toEqual(false);
+  });
+});
+
+// refactored function test
+describe('getsFileExtMD', () => {
+  it('Should be a function', () => {
+    expect(typeof functions.getsFileExtMD).toBe('function');
+  });
+  it('Should return true if file ext is .md', () => {
+    expect(functions.getsFileExtMD('/home/vilmango/Documents/LIM011-fe-md-links/README.md')).toBe(true);
+  });
+  it('Should return false if file ext is not .md', () => {
+    expect(functions.getsFileExtMD('/home/vilmango/Documents/LIM011-fe-md-links/')).toBe(false);
   });
 });
