@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1580339777715" clover="3.2.0">
-  <project timestamp="1580339777715" name="All files">
-    <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2" elements="7" coveredelements="7" complexity="0" loc="5" ncloc="5" packages="1" files="1" classes="1"/>
+<coverage generated="1580356689543" clover="3.2.0">
+  <project timestamp="1580356689543" name="All files">
+    <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3" elements="14" coveredelements="14" complexity="0" loc="11" ncloc="11" packages="1" files="1" classes="1"/>
     <file name="index.js" path="/home/vilmango/Documents/LIM011-fe-md-links/src/index.js">
-      <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
       <line num="2" count="1" type="stmt"/>
-      <line num="5" count="2" type="stmt"/>
-      <line num="7" count="1" type="stmt"/>
+      <line num="3" count="1" type="stmt"/>
+      <line num="6" count="2" type="stmt"/>
+      <line num="8" count="1" type="stmt"/>
       <line num="10" count="1" type="stmt"/>
-      <line num="16" count="1" type="stmt"/>
+      <line num="11" count="3" type="stmt"/>
+      <line num="12" count="3" type="stmt"/>
+      <line num="13" count="3" type="stmt"/>
+      <line num="15" count="1" type="stmt"/>
+      <line num="18" count="1" type="stmt"/>
+      <line num="25" count="1" type="stmt"/>
     </file>
   </project>
 </coverage>
