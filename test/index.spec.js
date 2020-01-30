@@ -16,3 +16,24 @@ describe('pathIsAbsolute', () => {
     expect(functions.pathIsAbsolute('../README.md')).toBe(false);
   });
 });
+
+describe('resolvePathToAbsolute', () => {
+  it('Should be a function', () => {
+    expect(typeof functions.resolvePathToAbsolute).toBe('function');
+  });
+
+  it('Should receive a relative path and return absolute', () => {
+    expect(functions.resolvePathToAbsolute('./README.md')).toBe('/home/vilmango/Documents/LIM011-fe-md-links/README.md');
+  });
+});
+describe('isPathaFile', () => {
+  it('Should be a function', () => {
+    expect(typeof functions.isPathaFile).toBe('function');
+  });
+  it('Should return true if the path is a File', () => {
+    expect(functions.isPathaFile('/home/vilmango/Documents/LIM011-fe-md-links/package.json')).toEqual(true);
+  });
+  it('Should return false if the path is not a File', () => {
+    expect(functions.isPathaFile('/home/vilmango/Documents/LIM011-fe-md-links')).toEqual(false);
+  });
+});
