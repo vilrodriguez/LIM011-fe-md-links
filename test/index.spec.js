@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+
 const functions = require('../src/index.js');
 // path.isAbsolute(myPath)
 // Test function Is the path absolute?
@@ -36,4 +36,37 @@ describe('isPathaFile', () => {
   it('Should return false if the path is not a File', () => {
     expect(functions.isPathaFile('/home/vilmango/Documents/LIM011-fe-md-links')).toEqual(false);
   });
+});
+describe('fileExtension', () => {
+  it('Should be a function', () => {
+    expect(typeof functions.fileExtension).toBe('function');
+  });
+  it('Should return string with file ext .md', () => {
+    expect(functions.fileExtension('/home/vilmango/Documents/LIM011-fe-md-links/README.md')).toBe('.md');
+  });
+});
+describe('verifiesFileExtIsMD', () => {
+  it('Should be a function', () => {
+    expect(typeof functions.verifiesFileExtIsMD).toBe('function');
+  });
+  it('Should return true if file ext is .md', () => {
+    expect(functions.verifiesFileExtIsMD('.md')).toBe(true);
+  });
+  it('Should return false if file ext is not .md', () => {
+    expect(functions.verifiesFileExtIsMD('')).toBe(false);
+  });
+});
+
+
+
+describe('getsFileExtMD', () => {
+  it('Should be a function', () => {
+    expect(typeof functions.getsFileExtMD).toBe('function');
+  });
+  /* it('Should return true if file ext is .md', () => {
+    expect(functions.getsFileExtMD('.md')).toBe(true);
+  });
+   it('Should return false if file ext is not .md', () => {
+    expect(functions.verifiesFileExtIsMD('')).toBe(false);
+  }); */
 });
