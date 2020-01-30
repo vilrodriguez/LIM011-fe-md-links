@@ -12,7 +12,7 @@ const isAbsolutePathaFile = (filePath) => {
   const file = stat.isFile();
   return file;
 };
-console.log(isAbsolutePathaFile('/home/vilmango/Documents/LIM011-fe-md-links/'));
+
 
 // exports module functions to test spec
 const functions = {
