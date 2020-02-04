@@ -8,6 +8,7 @@ const isAbsolutePathaFile = (filePath) => fs.lstatSync(filePath).isFile();
 const isAbsolutePathaFolder = (filePath) => fs.lstatSync(filePath).isDirectory();
 
 const verifyPathExtIsMD = (filePath) => (path.extname(filePath) === '.md');
+const getMDfilesFromArray = (fileArray) => fileArray.filter((element) => path.extname(element) === '.md');
 
 const getFilesInFolder = (filePath) => fs.readdirSync(filePath);
 // console.log(getFilesInFolder('/home/vilmango/Documents/LIM011-fe-md-links/prueba'));
@@ -25,7 +26,9 @@ const getMdFilesFromPath = (filePath) => {
   }
   return arrayMdFiles;
 };
-console.log(getMdFilesFromPath('/home/vilmango/Documents/LIM011-fe-md-links/prueba'));
+const arreglo = getMdFilesFromPath('/home/vilmango/Documents/LIM011-fe-md-links/prueba');
+console.log(getMDfilesFromArray(arreglo));
+// console.log(getMdFilesFromPath('/home/vilmango/Documents/LIM011-fe-md-links/prueba'));
 // console.log(getMdFilesFromPath('/home/vilmango/Documents/LIM011-fe-md-links/prueba'));
 const functions = {
   pathIsAbsolute: isPathAbsolute,
