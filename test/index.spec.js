@@ -8,11 +8,10 @@ describe('pathIsAbsolute', () => {
   it('Should be a function', () => {
     expect(typeof functions.pathIsAbsolute).toBe('function');
   });
-
-  it('Should return true is the path is Absolute ', () => {
+  it('Should return TRUE is the path is Absolute ', () => {
     expect(functions.pathIsAbsolute('/home/vilmango/Documents/LIM011-fe-md-links/README.md')).toBe(true);
   });
-  it('Should return false if the path is Relative', () => {
+  it('Should return FALSE if the path is Relative', () => {
     expect(functions.pathIsAbsolute('../README.md')).toBe(false);
   });
 });
@@ -21,8 +20,7 @@ describe('resolvePathToAbsolute', () => {
   it('Should be a function', () => {
     expect(typeof functions.resolvePathToAbsolute).toBe('function');
   });
-
-  it('Should receive a relative path and return absolute', () => {
+  it('Should receive a relative path and return an absolute path', () => {
     expect(functions.resolvePathToAbsolute('./README.md')).toBe('/home/vilmango/Documents/LIM011-fe-md-links/README.md');
   });
 });
@@ -30,11 +28,22 @@ describe('isPathaFile', () => {
   it('Should be a function', () => {
     expect(typeof functions.isPathaFile).toBe('function');
   });
-  it('Should return true if the path is a File', () => {
-    expect(functions.isPathaFile('/home/vilmango/Documents/LIM011-fe-md-links/package.json')).toEqual(true);
+  it('Should return TRUE if the path is a File', () => {
+    expect(functions.isPathaFile('/home/vilmango/Documents/LIM011-fe-md-links/package.json')).toBe(true);
   });
-  it('Should return false if the path is not a File', () => {
-    expect(functions.isPathaFile('/home/vilmango/Documents/LIM011-fe-md-links')).toEqual(false);
+  it('Should return FALSE if the path is not a File', () => {
+    expect(functions.isPathaFile('/home/vilmango/Documents/LIM011-fe-md-links')).toBe(false);
+  });
+});
+describe('isPathaFolder', () => {
+  it('Should be a function', () => {
+    expect(typeof functions.isPathaFolder).toBe('function');
+  });
+  it('Should return FALSE if the path is a File', () => {
+    expect(functions.isPathaFolder('/home/vilmango/Documents/LIM011-fe-md-links/package.json')).toBe(false);
+  });
+  it('Should return TRUE if the path is not a File', () => {
+    expect(functions.isPathaFolder('/home/vilmango/Documents/LIM011-fe-md-links')).toBe(true);
   });
 });
 
@@ -51,12 +60,24 @@ describe('verifyFileIsMarkdown', () => {
   });
 });
 
-describe('readFilesInFolder', () => {
+describe('gettingFilesInFolder', () => {
   it('Should be a function', () => {
-    expect(typeof functions.readFilesInFolder).toBe('function');
+    expect(typeof functions.gettingFilesInFolder).toBe('function');
   });
   it('Should return an array with files in folder', () => {
-    expect(functions.readFilesInFolder('/home/vilmango/Documents/LIM011-fe-md-links/src/'))
-      .toEqual(['cli.js', 'index.js']);
+    expect(functions.gettingFilesInFolder('/home/vilmango/Documents/LIM011-fe-md-links/prueba/'))
+      .toEqual(['aaskjdhajkssak.md', 'pato.html', 'prueba.md']);
   });
+});
+
+// '/home/vilmango/Documents/LIM011-fe-md-links/prueba'
+
+describe('getsMDFilesFromaPath', () => {
+  it('Should be a function', () => {
+    expect(typeof functions.getsMDFilesFromaPath).toBe('function');
+  });
+  // it('Should return an array with files in folder', () => {
+  //   expect(functions.readFilesInFolder('/home/vilmango/Documents/LIM011-fe-md-links/src/'))
+  //     .toEqual(['cli.js', 'index.js']);
+  // });
 });
