@@ -1,8 +1,5 @@
 
 const functions = require('../src/index.js');
-// path.isAbsolute(myPath)
-// Test function Is the path absolute?
-// Input path = string  - Output Is absolute, true/false = boolean
 
 describe('pathIsAbsolute', () => {
   it('Should be a function', () => {
@@ -71,7 +68,6 @@ describe('gettingFilesInFolder', () => {
 });
 
 // '/home/vilmango/Documents/LIM011-fe-md-links/prueba'
-
 describe('getsMDFilesFromaPath', () => {
   it('Should be a function', () => {
     expect(typeof functions.getsMDFilesFromaPath).toBe('function');
