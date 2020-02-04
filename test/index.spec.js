@@ -76,8 +76,19 @@ describe('getsMDFilesFromaPath', () => {
   it('Should be a function', () => {
     expect(typeof functions.getsMDFilesFromaPath).toBe('function');
   });
-  // it('Should return an array with files in folder', () => {
-  //   expect(functions.readFilesInFolder('/home/vilmango/Documents/LIM011-fe-md-links/src/'))
-  //     .toEqual(['cli.js', 'index.js']);
+  it('Should return an absolute path ending in a markdown file into an array', () => {
+    expect(functions.getsMDFilesFromaPath('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'))
+      .toEqual(['/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md']);
+  });
+  // it('Should return TRUE if path is a folder', () => {
+  //   expect(functions.getsMDFilesFromaPath(
+  // ['/home/vilmango/Documents/LIM011-fe-md-links/prueba/aaskjdhajkssak.md',
+  // '/home/vilmango/Documents/LIM011-fe-md-links/prueba/prueba.md']))
+  //     .toEqual(true);
   // });
+  it('Should return an array of paths ending in a markdown file', () => {
+    expect(functions.getsMDFilesFromaPath('/home/vilmango/Documents/LIM011-fe-md-links/prueba'))
+      .toEqual(['/home/vilmango/Documents/LIM011-fe-md-links/prueba/aaskjdhajkssak.md',
+        '/home/vilmango/Documents/LIM011-fe-md-links/prueba/prueba.md']);
+  });
 });

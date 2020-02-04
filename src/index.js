@@ -6,6 +6,7 @@ const isPathAbsolute = (filePath) => path.isAbsolute(filePath);
 const relativePathToAbsolute = (filePath) => path.resolve(filePath);
 const isAbsolutePathaFile = (filePath) => fs.lstatSync(filePath).isFile();
 const isAbsolutePathaFolder = (filePath) => fs.lstatSync(filePath).isDirectory();
+console.log(isAbsolutePathaFolder('/home/vilmango/Documents/LIM011-fe-md-links/prueba'));
 
 // 4 refactor, need to refactor to return an array
 const verifyPathExtIsMD = (filePath) => (path.extname(filePath) === '.md');
