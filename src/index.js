@@ -26,17 +26,20 @@ const getMdFilesFromPath = (filePath) => {
   }
   return arrayMdFiles;
 };
-const arreglo = getMdFilesFromPath('/home/vilmango/Documents/LIM011-fe-md-links/prueba');
+
+const arreglo = getMdFilesFromPath('/home/vilmango/Documents/LIM011-fe-md-links/');
+console.log(arreglo);
 console.log(getMDfilesFromArray(arreglo));
 // console.log(getMdFilesFromPath('/home/vilmango/Documents/LIM011-fe-md-links/prueba'));
 // console.log(getMdFilesFromPath('/home/vilmango/Documents/LIM011-fe-md-links/prueba'));
 const functions = {
-  pathIsAbsolute: isPathAbsolute,
+  /* pathIsAbsolute:  */isPathAbsolute,
   resolvePathToAbsolute: relativePathToAbsolute,
   isPathaFile: isAbsolutePathaFile,
   isPathaFolder: isAbsolutePathaFolder,
   verifyFileIsMarkdown: verifyPathExtIsMD,
   gettingFilesInFolder: getFilesInFolder,
   getsMDFilesFromaPath: getMdFilesFromPath,
+  getMDfilesFromArray,
 };
 module.exports = functions;

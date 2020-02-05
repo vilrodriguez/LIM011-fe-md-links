@@ -4,15 +4,15 @@ const functions = require('../src/index.js');
 // Test function Is the path absolute?
 // Input path = string  - Output Is absolute, true/false = boolean
 
-describe('pathIsAbsolute', () => {
+describe('isPathAbsolute', () => {
   it('Should be a function', () => {
-    expect(typeof functions.pathIsAbsolute).toBe('function');
+    expect(typeof functions.isPathAbsolute).toBe('function');
   });
   it('Should return TRUE is the path is Absolute ', () => {
-    expect(functions.pathIsAbsolute('/home/vilmango/Documents/LIM011-fe-md-links/README.md')).toBe(true);
+    expect(functions.isPathAbsolute('/home/vilmango/Documents/LIM011-fe-md-links/README.md')).toBe(true);
   });
   it('Should return FALSE if the path is Relative', () => {
-    expect(functions.pathIsAbsolute('../README.md')).toBe(false);
+    expect(functions.isPathAbsolute('../README.md')).toBe(false);
   });
 });
 
@@ -87,5 +87,15 @@ describe('getsMDFilesFromaPath', () => {
         '/home/vilmango/Documents/LIM011-fe-md-links/prueba/pato.html',
         '/home/vilmango/Documents/LIM011-fe-md-links/prueba/prueba.md',
       ]);
+  });
+});
+describe('getMDfilesFromArray', () => {
+  const arrayOfPaths = ['/home/vilmango/Documents/LIM011-fe-md-links/prueba/aaskjdhajkssak.md', '/home/vilmango/Documents/LIM011-fe-md-links/prueba/pato.html', '/home/vilmango/Documents/LIM011-fe-md-links/prueba/prueba.md'];
+  const returnedArray = ['/home/vilmango/Documents/LIM011-fe-md-links/prueba/aaskjdhajkssak.md', '/home/vilmango/Documents/LIM011-fe-md-links/prueba/prueba.md'];
+  it('Should be a function', () => {
+    expect(typeof functions.getMDfilesFromArray).toBe('function');
+  });
+  it('Should return an array of paths that end on .md files', () => {
+    expect(functions.getMDfilesFromArray(arrayOfPaths)).toEqual(returnedArray);
   });
 });
