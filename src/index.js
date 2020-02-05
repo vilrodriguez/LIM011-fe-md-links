@@ -21,15 +21,16 @@ const getMdFilesFromPath = (filePath) => {
     arrayMdFiles.push(filePath);
   } else if (isAbsolutePathaFolder(filePath)) {
     getFilesInFolder(filePath).forEach((element) => {
-      arrayMdFiles = arrayMdFiles.concat(path.join(filePath, element));
+      arrayMdFiles = arrayMdFiles.concat(getMdFilesFromPath(path.join(filePath, element)));
     });
   }
   return arrayMdFiles;
 };
 
+
 const arreglo = getMdFilesFromPath('/home/vilmango/Documents/LIM011-fe-md-links/');
-console.log(arreglo);
-console.log(getMDfilesFromArray(arreglo));
+// console.log(arreglo);
+// console.log(getMDfilesFromArray(arreglo));
 // console.log(getMdFilesFromPath('/home/vilmango/Documents/LIM011-fe-md-links/prueba'));
 // console.log(getMdFilesFromPath('/home/vilmango/Documents/LIM011-fe-md-links/prueba'));
 const functions = {
