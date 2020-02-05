@@ -10,6 +10,7 @@ const verifyPathExtIsMD = (filePath) => (path.extname(filePath) === '.md');
 const getMDfilesFromArray = (fileArray) => fileArray.filter((element) => path.extname(element) === '.md');
 const getFilesInFolder = (filePath) => fs.readdirSync(filePath);
 
+
 const getFileFromPathOrFolder = (filePath) => {
   let arrayMdFiles = [];
   if (isAbsolutePathaFile(filePath)) {
@@ -22,8 +23,8 @@ const getFileFromPathOrFolder = (filePath) => {
   return arrayMdFiles;
 };
 
-
-// console.log(isAbsolutePathaFolder('/home/vilmango/Documents/LIM011-fe-md-links/prueba/pato.html'));
+// console.log(isAbsolutePathaFolder('/home/vilmango/Documents/LIM011-fe-md-links/'));
+console.log(getFileFromPathOrFolder('/home/vilmango/Documents/LIM011-fe-md-links/'));
 
 const functions = {
   isPathAbsolute,
@@ -36,3 +37,16 @@ const functions = {
   getFileFromPathOrFolder,
 };
 module.exports = functions;
+
+// Works in all other folders but gives error with node_modules folder files
+// const getFileFromPathOrFolder = (filePath) => {
+//   let arrayMdFiles = [];
+//   if (isAbsolutePathaFile(filePath)) {
+//     arrayMdFiles.push(filePath);
+//   } else {
+//     getFilesInFolder(filePath).forEach((element) => {
+//       arrayMdFiles = arrayMdFiles.concat(getFileFromPathOrFolder(path.join(filePath, element)));
+//     });
+//   }
+//   return arrayMdFiles;
+// };
