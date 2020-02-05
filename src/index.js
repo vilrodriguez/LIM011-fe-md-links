@@ -30,7 +30,7 @@ const getMdFilesFromPath = (filePath) => {
   }
   return arrayMdFiles;
 };
-// console.log(getMdFilesFromPath('/home/vilmango/Documents/LIM011-fe-md-links/prueba'));
+console.log(getMdFilesFromPath('/home/vilmango/Documents/LIM011-fe-md-links/prueba'));
 const functions = {
   pathIsAbsolute: isPathAbsolute,
   resolvePathToAbsolute: relativePathToAbsolute,
