@@ -99,3 +99,13 @@ describe('getMDfilesFromArray', () => {
     expect(functions.getMDfilesFromArray(arrayOfPaths)).toEqual(returnedArray);
   });
 });
+
+describe('readMdFile', () => {
+  it('Should be a function', () => {
+    expect(typeof functions.readMdFile).toBe('function');
+  });
+  it('Should read a .md file and return its content as a string', () => {
+    expect(functions.readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'))
+      .toEqual('Esto es un texto de prueba :3 ');
+  });
+});

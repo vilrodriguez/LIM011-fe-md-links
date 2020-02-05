@@ -24,7 +24,14 @@ const getFileFromPathOrFolder = (filePath) => {
 };
 
 // console.log(isAbsolutePathaFolder('/home/vilmango/Documents/LIM011-fe-md-links/'));
-console.log(getFileFromPathOrFolder('/home/vilmango/Documents/LIM011-fe-md-links/'));
+// console.log(getFileFromPathOrFolder('/home/vilmango/Documents/LIM011-fe-md-links/'));
+
+const readMdFile = (filePathMdFile) => {
+  const string = fs.readFileSync(filePathMdFile);
+  return string.toString();
+};
+console.log(readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
+
 
 const functions = {
   isPathAbsolute,
@@ -35,6 +42,7 @@ const functions = {
   getFilesInFolder,
   getMDfilesFromArray,
   getFileFromPathOrFolder,
+  readMdFile,
 };
 module.exports = functions;
 
