@@ -30,7 +30,30 @@ const readMdFile = (filePathMdFile) => {
   const string = fs.readFileSync(filePathMdFile);
   return string.toString();
 };
-console.log(readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
+// console.log(readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
+
+
+// function createTextLinks(string) {
+//   return (string || '').replace(/([^\S]|^)(((https?:\/\/)|(www\.))(\S+))/gi,
+//     (match, space, url) => {
+//       let hyperlink = url;
+
+//       if (!hyperlink.match('^https?://')) {
+//         hyperlink = `http://${hyperlink}`;
+//       }
+//       // return `${space}<a href="${hyperlink}">${url}</a>`;
+//       console.log('ebebebebe', url);
+//     });
+// }
+
+// returns the first link only
+// const getLinksFromString = (linkText) => linkText.match(/(https?:\/\/[^ ]*)/)[1];
+
+const getLinksFromString = (stringFromFile) => stringFromFile.match(/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gi);
+
+const text = readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md');
+
+console.log('ahahahaha', getLinksFromString(text));
 
 
 const functions = {
@@ -43,6 +66,7 @@ const functions = {
   getMDfilesFromArray,
   getFileFromPathOrFolder,
   readMdFile,
+  getLinksFromString,
 };
 module.exports = functions;
 
