@@ -49,13 +49,35 @@ const readMdFile = (filePathMdFile) => {
 // returns the first link only
 // const getLinksFromString = (linkText) => linkText.match(/(https?:\/\/[^ ]*)/)[1];
 
-const getLinksFromString = (stringFromFile) => stringFromFile.match(/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gi);
+// const getLinksFromString = (stringFromFile) => stringFromFile
+// .match(/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gi);
+const getLinksFromString = (stringFromFile) => stringFromFile.match(/\[([^\]]+)\](\([^)]+\)|\[[^\]]+\])/gm);
 
+
+// const regEx = /([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gi;
 const text = readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md');
 
 console.log('ahahahaha', getLinksFromString(text));
 
 
+/*
+const m = regEx.exec(text);
+const links = [];
+while ((m) !== null) {
+  if (m.index === regEx.lastIndex) {
+    regEx.lastIndex += 1;
+  }
+  console.log(m[0]); // The all substring
+  console.log(m[1]); // The href subpart
+  console.log(m[2]); // The anchor subpart
+
+  links.push({
+    match: m[0], // the entire match
+    href: m[1], // the first parenthesis => (https?://.)
+    anchor: m[2], // the second one => ([^<])
+  });
+}
+*/
 const functions = {
   isPathAbsolute,
   relativePathToAbsolute,
