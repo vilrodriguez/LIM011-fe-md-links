@@ -23,42 +23,47 @@ const getFileFromPathOrFolder = (filePath) => {
   return arrayMdFiles;
 };
 
-// console.log(isAbsolutePathaFolder('/home/vilmango/Documents/LIM011-fe-md-links/'));
-// console.log(getFileFromPathOrFolder('/home/vilmango/Documents/LIM011-fe-md-links/'));
-
 const readMdFile = (filePathMdFile) => {
   const string = fs.readFileSync(filePathMdFile);
   return string.toString();
 };
-// console.log(readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
-
-
-// function createTextLinks(string) {
-//   return (string || '').replace(/([^\S]|^)(((https?:\/\/)|(www\.))(\S+))/gi,
-//     (match, space, url) => {
-//       let hyperlink = url;
-
-//       if (!hyperlink.match('^https?://')) {
-//         hyperlink = `http://${hyperlink}`;
-//       }
-//       // return `${space}<a href="${hyperlink}">${url}</a>`;
-//       console.log('ebebebebe', url);
-//     });
-// }
 
 // returns the first link only
 // const getLinksFromString = (linkText) => linkText.match(/(https?:\/\/[^ ]*)/)[1];
 
 // const getLinksFromString = (stringFromFile) => stringFromFile
 // .match(/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gi);
-const getLinksFromString = (stringFromFile) => stringFromFile.match(/\[([^\]]+)\](\([^)]+\)|\[[^\]]+\])/gm);
+// const getLinksFromString = (stringFromFile) => stringFromFile
+// .match(/\[([^\]]+)\](\([^)]+\)|\[[^\]]+\])/gm);
+// .match(/(\[[^\]]+\])/gm);
+// .match(/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm);
 
-
-// const regEx = /([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gi;
+const getLinksFromString = (stringFromFile) => stringFromFile.match(/(\[[^\]]+\])([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm);
+// const getLinks = (stringFromFile) => stringFromFile.match(/(\[[^\]]+\])/gm);
+// const getText = (stringFromFile) => stringFromFile
+// .match(/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm);
 const text = readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md');
 
-console.log('ahahahaha', getLinksFromString(text));
+// console.log('gets links and text', getLinksFromString(text));
+// console.log('only links', getLinks(text));
+// console.log('only text', getText(text));
 
+const returnLinks = (arrayOfLinks) => {
+  const linksArray = [];
+  arrayOfLinks.map((element) => {
+    const hrefString = element.match(/(\[[^\]]+\])/gm);
+    const linkString = element.match(/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm);
+    // const code ='';
+    // const status = '';
+    linksArray.push({
+      text: hrefString,
+      link: linkString,
+      file: '',
+    });
+  });
+    return linksArray;
+};
+console.log(returnLinks(getLinksFromString(text)));
 
 /*
 const m = regEx.exec(text);
@@ -78,6 +83,10 @@ while ((m) !== null) {
   });
 }
 */
+/* const hrefRegEx = (/(\[[^\]]+\])/gm);
+const linkRegEx = (/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm);
+const href = hrefRegEx.exec(element);
+const link = linkRegEx.exec(element); */
 const functions = {
   isPathAbsolute,
   relativePathToAbsolute,
