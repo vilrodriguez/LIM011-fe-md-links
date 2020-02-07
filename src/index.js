@@ -99,6 +99,7 @@ const functions = {
   getFileFromPathOrFolder,
   readMdFile,
   getLinksFromString,
+  returnLinks,
 };
 module.exports = functions;
 

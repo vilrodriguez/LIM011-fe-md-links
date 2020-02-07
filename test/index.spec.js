@@ -124,3 +124,26 @@ describe('getLinksFromString', () => {
       .toEqual(links);
   });
 });
+describe('returnLinks', () => {
+  const links = ['[Pill de recursión - video](https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s)',
+    '[Pill de recursión - repositorio](https://github.com/merunga/pildora-recursion)'];
+  const array = [
+    {
+      text: ['[Pill de recursión - video]'],
+      link: ['(https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s)'],
+      file: ['/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'],
+    },
+    {
+      text: ['[Pill de recursión - repositorio]'],
+      link: ['(https://github.com/merunga/pildora-recursion)'],
+      file: ['/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'],
+    },
+  ];
+  it('Should be a function', () => {
+    expect(typeof functions.returnLinks).toBe('function');
+  });
+  it('Should return an array of element with href/text/file', () => {
+    expect(functions.returnLinks(links, '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'))
+      .toEqual(array);
+  });
+});
