@@ -23,16 +23,71 @@ const getFileFromPathOrFolder = (filePath) => {
   return arrayMdFiles;
 };
 
-// console.log(isAbsolutePathaFolder('/home/vilmango/Documents/LIM011-fe-md-links/'));
-// console.log(getFileFromPathOrFolder('/home/vilmango/Documents/LIM011-fe-md-links/'));
-
 const readMdFile = (filePathMdFile) => {
   const string = fs.readFileSync(filePathMdFile);
   return string.toString();
 };
-console.log(readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
 
+// returns the first link only
+// const getLinksFromString = (linkText) => linkText.match(/(https?:\/\/[^ ]*)/)[1];
 
+// const getLinksFromString = (stringFromFile) => stringFromFile
+// .match(/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gi);
+// const getLinksFromString = (stringFromFile) => stringFromFile
+// .match(/\[([^\]]+)\](\([^)]+\)|\[[^\]]+\])/gm);
+// .match(/(\[[^\]]+\])/gm);
+// .match(/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm);
+
+const getLinksFromString = (stringFromFile) => stringFromFile.match(/(\[[^\]]+\])([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm);
+// const getLinks = (stringFromFile) => stringFromFile.match(/(\[[^\]]+\])/gm);
+// const getText = (stringFromFile) => stringFromFile
+// .match(/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm);
+const text = readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md');
+
+// console.log('gets links and text', getLinksFromString(text));
+// console.log('only links', getLinks(text));
+// console.log('only text', getText(text));
+
+const returnLinks = (arrayOfLinks, filePath) => {
+  const linksArray = [];
+  const fileString = getFileFromPathOrFolder(filePath);
+  arrayOfLinks.map((element) => {
+    const hrefString = element.match(/(\[[^\]]+\])/gm);
+    const linkString = element.match(/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm);
+    // const code ='';
+    // const status = '';
+    return linksArray.push({
+      text: hrefString,
+      link: linkString,
+      file: fileString,
+    });
+  });
+  return linksArray;
+};
+console.log(returnLinks(getLinksFromString(text), '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
+
+/*
+const m = regEx.exec(text);
+const links = [];
+while ((m) !== null) {
+  if (m.index === regEx.lastIndex) {
+    regEx.lastIndex += 1;
+  }
+  console.log(m[0]); // The all substring
+  console.log(m[1]); // The href subpart
+  console.log(m[2]); // The anchor subpart
+
+  links.push({
+    match: m[0], // the entire match
+    href: m[1], // the first parenthesis => (https?://.)
+    anchor: m[2], // the second one => ([^<])
+  });
+}
+*/
+/* const hrefRegEx = (/(\[[^\]]+\])/gm);
+const linkRegEx = (/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm);
+const href = hrefRegEx.exec(element);
+const link = linkRegEx.exec(element); */
 const functions = {
   isPathAbsolute,
   relativePathToAbsolute,
@@ -43,6 +98,7 @@ const functions = {
   getMDfilesFromArray,
   getFileFromPathOrFolder,
   readMdFile,
+  getLinksFromString,
 };
 module.exports = functions;
 

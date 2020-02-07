@@ -98,11 +98,29 @@ describe('getMDfilesFromArray', () => {
 });
 
 describe('readMdFile', () => {
+  const text = `Esto es un texto de prueba :3
+- [Pill de recursión - video](https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s)
+- [Pill de recursión - repositorio](https://github.com/merunga/pildora-recursion)`;
   it('Should be a function', () => {
     expect(typeof functions.readMdFile).toBe('function');
   });
   it('Should read a .md file and return its content as a string', () => {
     expect(functions.readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'))
-      .toEqual('Esto es un texto de prueba :3 ');
+      .toEqual(text);
+  });
+});
+describe('getLinksFromString', () => {
+  const text = `Esto es un texto de prueba :3
+- [Pill de recursión - video](https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s)
+- [Pill de recursión - repositorio](https://github.com/merunga/pildora-recursion)`;
+  const links = ['[Pill de recursión - video](https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s)',
+    '[Pill de recursión - repositorio](https://github.com/merunga/pildora-recursion)',
+  ];
+  it('Should be a function', () => {
+    expect(typeof functions.getLinksFromString).toBe('function');
+  });
+  it('Should return an array of links found in the md file', () => {
+    expect(functions.getLinksFromString(text))
+      .toEqual(links);
   });
 });
