@@ -48,22 +48,23 @@ const text = readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md
 // console.log('only links', getLinks(text));
 // console.log('only text', getText(text));
 
-const returnLinks = (arrayOfLinks) => {
+const returnLinks = (arrayOfLinks, filePath) => {
   const linksArray = [];
+  const fileString = getFileFromPathOrFolder(filePath);
   arrayOfLinks.map((element) => {
     const hrefString = element.match(/(\[[^\]]+\])/gm);
     const linkString = element.match(/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm);
     // const code ='';
     // const status = '';
-    linksArray.push({
+    return linksArray.push({
       text: hrefString,
       link: linkString,
-      file: '',
+      file: fileString,
     });
   });
-    return linksArray;
+  return linksArray;
 };
-console.log(returnLinks(getLinksFromString(text)));
+console.log(returnLinks(getLinksFromString(text), '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
 
 /*
 const m = regEx.exec(text);
