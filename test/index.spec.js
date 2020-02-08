@@ -129,14 +129,14 @@ describe('returnLinks', () => {
     '[Pill de recursión - repositorio](https://github.com/merunga/pildora-recursion)'];
   const array = [
     {
-      text: ['[Pill de recursión - video]'],
-      link: ['(https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s)'],
-      file: ['/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'],
+      text: '[Pill de recursión - video]',
+      link: '(https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s)',
+      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
     },
     {
-      text: ['[Pill de recursión - repositorio]'],
-      link: ['(https://github.com/merunga/pildora-recursion)'],
-      file: ['/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'],
+      text: '[Pill de recursión - repositorio]',
+      link: '(https://github.com/merunga/pildora-recursion)',
+      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
     },
   ];
   it('Should be a function', () => {
@@ -146,4 +146,13 @@ describe('returnLinks', () => {
     expect(functions.returnLinks(links, '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'))
       .toEqual(array);
   });
+});
+
+describe('uniqueLinks', () => {
+  it('Should be a function', () => {
+    expect(typeof functions.uniqueLinks).toBe('function');
+  });
+  // it('Should return an array of unique links', () => {
+  //   expect(functions.uniqueLinks('']);
+  // });
 });

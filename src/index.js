@@ -1,6 +1,7 @@
 //  Syntax for including Path module in your app
 const path = require('path');
 const fs = require('fs');
+const fetch = require('node-fetch');
 
 const isPathAbsolute = (filePath) => path.isAbsolute(filePath);
 const relativePathToAbsolute = (filePath) => path.resolve(filePath);
@@ -9,7 +10,6 @@ const isAbsolutePathaFolder = (filePath) => fs.lstatSync(filePath).isDirectory()
 const verifyPathExtIsMD = (filePath) => (path.extname(filePath) === '.md');
 const getMDfilesFromArray = (fileArray) => fileArray.filter((element) => path.extname(element) === '.md');
 const getFilesInFolder = (filePath) => fs.readdirSync(filePath);
-
 
 const getFileFromPathOrFolder = (filePath) => {
   let arrayMdFiles = [];
@@ -31,63 +31,54 @@ const readMdFile = (filePathMdFile) => {
 // returns the first link only
 // const getLinksFromString = (linkText) => linkText.match(/(https?:\/\/[^ ]*)/)[1];
 
-// const getLinksFromString = (stringFromFile) => stringFromFile
-// .match(/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gi);
-// const getLinksFromString = (stringFromFile) => stringFromFile
-// .match(/\[([^\]]+)\](\([^)]+\)|\[[^\]]+\])/gm);
-// .match(/(\[[^\]]+\])/gm);
-// .match(/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm);
-
 const getLinksFromString = (stringFromFile) => stringFromFile.match(/(\[[^\]]+\])([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm);
-// const getLinks = (stringFromFile) => stringFromFile.match(/(\[[^\]]+\])/gm);
-// const getText = (stringFromFile) => stringFromFile
-// .match(/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm);
-const text = readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md');
 
-// console.log('gets links and text', getLinksFromString(text));
-// console.log('only links', getLinks(text));
-// console.log('only text', getText(text));
+const text = readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md');
 
 const returnLinks = (arrayOfLinks, filePath) => {
   const linksArray = [];
-  const fileString = getFileFromPathOrFolder(filePath);
-  arrayOfLinks.map((element) => {
-    const hrefString = element.match(/(\[[^\]]+\])/gm);
-    const linkString = element.match(/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm);
-    // const code ='';
-    // const status = '';
-    return linksArray.push({
-      text: hrefString,
-      link: linkString,
-      file: fileString,
-    });
+  arrayOfLinks.map((element) => linksArray.push({
+    link: element.match(/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm)[0],
+    text: element.match(/(\[[^\]]+\])/gm)[0],
+    file: filePath,
+  }));
+  return linksArray;
+};
+// recorrer array, luego sacar
+const aaaa = returnLinks(getLinksFromString(text), '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md');
+
+const cleanLink = (array) => {
+  const linksArray = [];
+  array.map((ele) => {
+    const string = ele.link;
+    const result = string.substring(1, string.length - 1);
+    return linksArray.push(result);
   });
   return linksArray;
 };
-console.log(returnLinks(getLinksFromString(text), '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
 
-/*
-const m = regEx.exec(text);
-const links = [];
-while ((m) !== null) {
-  if (m.index === regEx.lastIndex) {
-    regEx.lastIndex += 1;
-  }
-  console.log(m[0]); // The all substring
-  console.log(m[1]); // The href subpart
-  console.log(m[2]); // The anchor subpart
+console.log(cleanLink(aaaa));
 
-  links.push({
-    match: m[0], // the entire match
-    href: m[1], // the first parenthesis => (https?://.)
-    anchor: m[2], // the second one => ([^<])
-  });
-}
-*/
-/* const hrefRegEx = (/(\[[^\]]+\])/gm);
-const linkRegEx = (/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm);
-const href = hrefRegEx.exec(element);
-const link = linkRegEx.exec(element); */
+
+const fetchPromise = fetch('https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s');
+
+fetchPromise.then((response) => {
+  console.log(response);
+});
+
+
+// fetchPromise(validateURL(aaaa));
+// const uniqueLinks = (returnedLinks) => {
+//   console.log(returnedLinks[2].text);
+
+//   console.log(returnedLinks.length);
+//   const uniqueItems = [...new Set(returnedLinks)];
+//   return uniqueItems.length;
+// };
+// uniqueLinks(returnLinks(getLinksFromString(text),
+// '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
+
+
 const functions = {
   isPathAbsolute,
   relativePathToAbsolute,
