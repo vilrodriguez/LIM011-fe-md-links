@@ -57,14 +57,24 @@ const cleanLink = (array) => {
   return linksArray;
 };
 
+
 console.log(cleanLink(aaaa));
 
+// const fetchPromise = fetch('https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s');
+const verifyStatus = (arrayOfLinks) => {
+  const link = cleanLink(arrayOfLinks);
+  console.log(link);
+  link.forEach((element) => {
+    fetch(element).then((result) => {
+      console.log(result);
+    });
+  });
+};
 
-const fetchPromise = fetch('https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s');
-
-fetchPromise.then((response) => {
-  console.log(response);
-});
+verifyStatus(aaaa);
+// fetchPromise.then((response) => {
+//   console.log(response);
+// });
 
 
 // fetchPromise(validateURL(aaaa));
