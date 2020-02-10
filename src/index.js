@@ -57,14 +57,6 @@ const returnLinks = (arrayOfLinks, filePath) => {
   });
   return linksArray;
 };
-<<<<<<< HEAD
-console.log(returnLinks(getLinksFromString(text), '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
-
-/* const hrefRegEx = (/(\[[^\]]+\])/gm);
-const linkRegEx = (/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm);
-const href = hrefRegEx.exec(element);
-const link = linkRegEx.exec(element); */
-=======
 const text = getLinksFromString(readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
 console.log('texto from string', text);
 console.log('asdasda', returnLinks(text, '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
@@ -123,7 +115,6 @@ console.log('asdasda', returnLinks(text, '/home/vilmango/Documents/LIM011-fe-md-
 // '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
 
 
->>>>>>> 0a0fc53c604c975804d49faa69099948f4b5674b
 const functions = {
   isPathAbsolute,
   relativePathToAbsolute,
