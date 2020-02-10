@@ -127,7 +127,7 @@ describe('getLinksFromString', () => {
 describe('returnLinks', () => {
   const links = ['[Pill de recursión - video](https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s)',
     '[Pill de recursión - repositorio](https://github.com/merunga/pildora-recursion)'];
-  const array = [
+  const obj = [
     {
       text: '[Pill de recursión - video]',
       link: '(https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s)',
@@ -144,7 +144,7 @@ describe('returnLinks', () => {
   });
   it('Should return an array of element with href/text/file', () => {
     expect(functions.returnLinks(links, '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'))
-      .toEqual(array);
+      .toEqual(obj);
   });
 });
 
