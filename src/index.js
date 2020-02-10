@@ -58,16 +58,38 @@ const cleanLink = (array) => {
 };
 
 
-console.log(cleanLink(aaaa));
+// console.log(cleanLink(aaaa));
 
 // const fetchPromise = fetch('https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s');
 const verifyStatus = (arrayOfLinks) => {
-  const link = cleanLink(arrayOfLinks);
-  console.log(link);
-  link.forEach((element) => {
-    fetch(element).then((result) => {
-      console.log(result);
+  // const link = cleanLink(arrayOfLinks);
+  // console.log(link);
+  arrayOfLinks.map((element) => {
+    fetch(element.link).then((response) => {
+      const { status } = response;
+      const { statusText } = response;
+      if (status >= 200 && status <= 399) {
+        const newobj = {
+          ...element,
+          message: 'OK',
+          status,
+        };
+        console.log(newobj);
+      } else {
+        // const message = 'Fail';
+        const newobj = {
+          ...element,
+          message: 'Fail',
+          status,
+        };
+        console.log(newobj);
+      }
+      console.log(status, statusText);
     });
+
+    // .then((json) => );
+    //   console.log(result);
+    // });
   });
 };
 
