@@ -66,24 +66,6 @@ const returnLinks = (arrayOfLinks, filePath) => {
 };
 console.log(returnLinks(getLinksFromString(text), '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
 
-/*
-const m = regEx.exec(text);
-const links = [];
-while ((m) !== null) {
-  if (m.index === regEx.lastIndex) {
-    regEx.lastIndex += 1;
-  }
-  console.log(m[0]); // The all substring
-  console.log(m[1]); // The href subpart
-  console.log(m[2]); // The anchor subpart
-
-  links.push({
-    match: m[0], // the entire match
-    href: m[1], // the first parenthesis => (https?://.)
-    anchor: m[2], // the second one => ([^<])
-  });
-}
-*/
 /* const hrefRegEx = (/(\[[^\]]+\])/gm);
 const linkRegEx = (/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm);
 const href = hrefRegEx.exec(element);
