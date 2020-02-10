@@ -251,30 +251,30 @@ pendientes de tu proyecto anterior.
 - [ ] Consumo de Promesas
 - [ ] Creacion de Promesas
 - [ ] Modulos de Js
-- [ ] Recursión
+- [x] Recursión
 
 ### Node
 - [ ] Sistema de archivos
-- [ ] package.json
+- [x] package.json
 - [ ] crear modules
 - [ ] Instalar y usar modules
 - [ ] npm scripts
 - [ ] CLI (Command Line Interface - Interfaz de Línea de Comando)
 
 ### Testing
-- [ ] Testeo de tus funciones
+- [x] Testeo de tus funciones
 - [ ] Testeo asíncrono
 - [ ] Uso de librerias de Mock
 - [ ] Mocks manuales
 - [ ] Testeo para multiples Sistemas Operativos
 
 ### Git y Github
-- [ ] Organización en Github
+- [x] Organización en Github
 
 ### Buenas prácticas de desarrollo
 - [ ] Modularización
 - [ ] Nomenclatura / Semántica
-- [ ] Linting
+- [x] Linting
 
 ***
 
