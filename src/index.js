@@ -57,63 +57,42 @@ const returnLinks = (arrayOfLinks, filePath) => {
   });
   return linksArray;
 };
-const text = getLinksFromString(readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
-console.log('texto from string', text);
-console.log('asdasda', returnLinks(text, '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
 
 
 // const fetchPromise = fetch('https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s');
-// const verifyStatus = (arrayOfLinks) => {
-//   // const link = cleanLink(arrayOfLinks);
-//   // console.log(link);
-//   arrayOfLinks.map((element) => {
-//     let newobj = {};
-//     fetch(element.link).then((response) => {
-//       const { status } = response;
-//       const { statusText } = response;
-//       if (status >= 200 && status <= 399) {
-//         newobj = {
-//           ...element,
-//           message: 'OK',
-//           status,
-//         };
-//         console.log(newobj);
-//       } else {
-//         // const message = 'Fail';
-//         newobj = {
-//           ...element,
-//           message: 'Fail',
-//           status,
-//         };
-//         return newobj;
-//       }
-//       console.log(status, statusText);
-//       return arrayOfLinks;
-//     });
 
-// .then((json) => );
-//   console.log(result);
-// });
-//   });
-// };
+const verifyStatus = (array) => {
+  array.map((element) => {
+    let newObj = {};
+    fetch(element.link).then((response) => {
+      const { status } = response;
+      const { statusText } = response;
+      if (status >= 200 && status <= 399) {
+        newObj = {
+          ...element, status, message: statusText,
+        };
+        console.log(newObj);
+      } else {
+        newObj = {
+          ...element, status, message: 'Fail',
+        };
+        console.log(newObj);
+      }
+    }); return newObj;
+  });
+};
+
+
+const text = getLinksFromString(readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
+// console.log('texto from string', text);
+// console.log('asdasda', returnLinks(text, '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
+const arrayoflink = returnLinks(text, '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md');
+console.log(verifyStatus(arrayoflink));
 
 // verifyStatus(aaaa);
 // fetchPromise.then((response) => {
 //   console.log(response);
 // });
-
-
-// fetchPromise(validateURL(aaaa));
-// const uniqueLinks = (returnedLinks) => {
-//   console.log(returnedLinks[2].text);
-
-//   console.log(returnedLinks.length);
-//   const uniqueItems = [...new Set(returnedLinks)];
-//   return uniqueItems.length;
-// };
-// uniqueLinks(returnLinks(getLinksFromString(text),
-// '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
-
 
 const functions = {
   isPathAbsolute,
@@ -128,27 +107,5 @@ const functions = {
   getLinksFromString,
   returnLinks,
 };
+
 module.exports = functions;
-
-// Works in all other folders but gives error with node_modules folder files
-// const getFileFromPathOrFolder = (filePath) => {
-//   let arrayMdFiles = [];
-//   if (isAbsolutePathaFile(filePath)) {
-//     arrayMdFiles.push(filePath);
-//   } else {
-//     getFilesInFolder(filePath).forEach((element) => {
-//       arrayMdFiles = arrayMdFiles.concat(getFileFromPathOrFolder(path.join(filePath, element)));
-//     });
-//   }
-//   return arrayMdFiles;
-// };
-
-// const cleanLink = (array) => {
-//   const linksArray = [];
-//   array.map((ele) => {
-//     const string = ele.link;
-//     const result = string.substring(1, string.length - 1);
-//     return linksArray.push(result);
-//   });
-//   return linksArray;
-// };
