@@ -1,5 +1,8 @@
 
+const fetchMock = require('fetch-mock');
 const functions = require('../src/index.js');
+
+fetchMock.mock('*', 200);
 
 describe('isPathAbsolute', () => {
   it('Should be a function', () => {
@@ -106,7 +109,7 @@ describe('readMdFile', () => {
   });
   it('Should read a .md file and return its content as a string', () => {
     expect(functions.readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'))
-      .toEqual(text);
+      .toStrictEqual(text);
   });
 });
 describe('getLinksFromString', () => {
@@ -130,12 +133,12 @@ describe('returnLinks', () => {
   const obj = [
     {
       text: '[Pill de recursión - video]',
-      link: '(https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s)',
+      link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
       file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
     },
     {
       text: '[Pill de recursión - repositorio]',
-      link: '(https://github.com/merunga/pildora-recursion)',
+      link: 'https://github.com/merunga/pildora-recursion',
       file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
     },
   ];
@@ -148,11 +151,63 @@ describe('returnLinks', () => {
   });
 });
 
-describe('uniqueLinks', () => {
+describe('getLinksFromString', () => {
+  const text = `Esto es un texto de prueba :3
+- [Pill de recursión - video](https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s)
+- [Pill de recursión - repositorio](https://github.com/merunga/pildora-recursion)`;
+  const links = ['[Pill de recursión - video](https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s)',
+    '[Pill de recursión - repositorio](https://github.com/merunga/pildora-recursion)',
+  ];
   it('Should be a function', () => {
-    expect(typeof functions.uniqueLinks).toBe('function');
+    expect(typeof functions.getLinksFromString).toBe('function');
   });
-  // it('Should return an array of unique links', () => {
-  //   expect(functions.uniqueLinks('']);
-  // });
+  it('Should return an array of links found in the md file', () => {
+    expect(functions.getLinksFromString(text))
+      .toEqual(links);
+  });
+});
+describe('verifyLinkStatus', () => {
+  it('Should be a function', () => {
+    expect(typeof functions.verifyLinkStatus).toBe('function');
+  });
+});
+
+
+describe('verifyLinkStatus', () => {
+  const dataToFetchFrom = [
+    {
+      link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
+      text: '[Pill de recursión - video]',
+      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+    },
+    {
+      link: 'https://github.com/merunga/pildora-recursion',
+      text: '[Pill de recursión - repositorio]',
+      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+    },
+  ];
+  const returnedData = [
+    {
+      link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
+      text: '[Pill de recursión - video]',
+      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      status: 200,
+      message: 'OK',
+    },
+    {
+      link: 'https://github.com/merunga/pildora-recursion',
+      text: '[Pill de recursión - repositorio]',
+      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      status: 200,
+      message: 'OK',
+    },
+  ];
+
+  it('Should be a function', () => {
+    expect(typeof functions.verifyLinkStatus).toBe('function');
+  });
+  it('Should return an object ', (done) => functions.verifyLinkStatus(dataToFetchFrom).then((data) => {
+    expect(data).toEqual(returnedData);
+    done();
+  }));
 });

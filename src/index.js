@@ -28,21 +28,8 @@ const readMdFile = (filePathMdFile) => {
   return string.toString();
 };
 
-// returns the first link only
-// const getLinksFromString = (linkText) => linkText.match(/(https?:\/\/[^ ]*)/)[1];
-
 const getLinksFromString = (stringFromFile) => stringFromFile.match(/(\[[^\]]+\])([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm);
 
-
-// const returnLinks = (arrayOfLinks, filePath) => {
-//   const linksArray = [];
-//   arrayOfLinks.map((element) => linksArray.push({
-//     link: element.match(/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm)[0],
-//     text: element.match(/(\[[^\]]+\])/gm)[0],
-//     file: filePath,
-//   }));
-//   return linksArray;
-// };
 // recorrer array, luego sacar
 const returnLinks = (arrayOfLinks, filePath) => {
   const linksArray = [];
@@ -58,41 +45,33 @@ const returnLinks = (arrayOfLinks, filePath) => {
   return linksArray;
 };
 
-
-// const fetchPromise = fetch('https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s');
-
-const verifyStatus = (array) => {
-  array.map((element) => {
-    let newObj = {};
-    fetch(element.link).then((response) => {
+const verifyLinkStatus = (array) => {
+  let newObj = {};
+  const newArray = [];
+  array.forEach((element) => {
+    newArray.push(fetch(element.link).then((response) => {
       const { status } = response;
       const { statusText } = response;
       if (status >= 200 && status <= 399) {
-        newObj = {
-          ...element, status, message: statusText,
-        };
-        console.log(newObj);
+        newObj = { ...element, status, message: statusText };
       } else {
-        newObj = {
-          ...element, status, message: 'Fail',
-        };
-        console.log(newObj);
+        newObj = { ...element, status, message: 'Fail' };
       }
-    }); return newObj;
+      // console.log('New Objetc', newObj);
+      return newObj;
+    }));
+    console.log('Returns of promise function', newArray);
   });
+  return Promise.all(newArray);
 };
 
-
 const text = getLinksFromString(readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
-// console.log('texto from string', text);
-// console.log('asdasda', returnLinks(text, '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
 const arrayoflink = returnLinks(text, '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md');
-console.log(verifyStatus(arrayoflink));
+// console.log(arrayoflink);
 
-// verifyStatus(aaaa);
-// fetchPromise.then((response) => {
-//   console.log(response);
-// });
+// return Promise.all(verifyLinkStatus(arrayoflink)).then((result) => console.log('rtrtrtrt', result));
+// console.log('ajajaja', verifyLinkStatus(arrayoflink));
+
 
 const functions = {
   isPathAbsolute,
@@ -106,6 +85,7 @@ const functions = {
   readMdFile,
   getLinksFromString,
   returnLinks,
+  verifyLinkStatus,
 };
 
 module.exports = functions;
