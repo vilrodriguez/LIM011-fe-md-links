@@ -7,7 +7,8 @@ const isPathAbsolute = (filePath) => path.isAbsolute(filePath);
 const relativePathToAbsolute = (filePath) => path.resolve(filePath);
 const isAbsolutePathaFile = (filePath) => fs.lstatSync(filePath).isFile();
 const isAbsolutePathaFolder = (filePath) => fs.lstatSync(filePath).isDirectory();
-const verifyPathExtIsMD = (filePath) => (path.extname(filePath) === '.md');
+const verifyPathExtIsMD = (filePath) => (path.extname(filePath) === '.md');dd .
+
 const getMDfilesFromArray = (fileArray) => fileArray.filter((element) => path.extname(element) === '.md');
 const getFilesInFolder = (filePath) => fs.readdirSync(filePath);
 
