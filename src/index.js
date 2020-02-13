@@ -29,6 +29,7 @@ const readMdFile = (filePathMdFile) => {
   return string.toString();
 };
 
+
 const getLinksFromString = (stringFromFile) => stringFromFile.match(/(\[[^\]]+\])([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm);
 
 // recorrer array, luego sacar
@@ -66,11 +67,14 @@ const verifyLinkStatus = (array) => {
   return Promise.all(newArray);
 };
 
+
+
 const text = getLinksFromString(readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
 const arrayoflink = returnLinks(text, '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md');
 // console.log(arrayoflink);
 
-// return Promise.all(verifyLinkStatus(arrayoflink)).then((result) => console.log('rtrtrtrt', result));
+verifyLinkStatus(arrayoflink).then((result) => console.log('rtrtrtrt', result));
+
 // console.log('ajajaja', verifyLinkStatus(arrayoflink));
 
 
