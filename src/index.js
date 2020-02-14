@@ -31,7 +31,6 @@ const readMdFile = (filePathMdFile) => {
 
 const getLinksFromString = (stringFromFile) => stringFromFile.match(/(\[[^\]]+\])([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm);
 
-// recorrer array, luego sacar
 const returnLinks = (arrayOfLinks, filePath) => {
   const linksArray = [];
   arrayOfLinks.map((element) => {
@@ -83,8 +82,9 @@ const ValidateStats = (obj) => {
   const allLinks = obj.map((element) => element.link);
   const links = allLinks.length;
   const uniqueLinks = [...new Set(allLinks)].length;
-  const invalidLinks = obj.filter((element) => element.message === 'Fail' && element.message === 'Fail');
+  const invalidLinks = obj.filter((element) => element.message === 'Fail');
   const broken = invalidLinks.length;
+  // console.log(invalidLinks);
   return `Total Links in file: ${links} \nUnique Links: ${uniqueLinks} \nBroken: ${broken}`;
 };
 
@@ -92,15 +92,18 @@ const ValidateStats = (obj) => {
 
 // const text = getLinksFromString(readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/prueba/prueba.md'));
 // const arrayoflink = returnLinks(text, '/home/vilmango/Documents/LIM011-fe-md-links/prueba/prueba.md')';
-const text = getLinksFromString(readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
-const arrayoflink = returnLinks(text, '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md');
+// const text = getLinksFromString(readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
+// const arrayoflink = returnLinks(text, '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md');
 // console.log(arrayoflink);
 // console.log('mew', arrayoflink);
 
 
-verifyLinkStatus(arrayoflink).then((result) => console.log(ValidateStats(result)));
+// verifyLinkStatus(arrayoflink).then((result) => {
+//   // console.log('aaaa', result);
+//  ValidateStats(result);
+// });
 
-console.log(stats(arrayoflink));
+// console.log(stats(arrayoflink));
 
 
 // console.log('ajajaja', verifyLinkStatus(arrayoflink));
@@ -120,6 +123,7 @@ const functions = {
   returnLinks,
   verifyLinkStatus,
   stats,
+  ValidateStats,
 };
 
 module.exports = functions;
