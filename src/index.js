@@ -8,14 +8,15 @@ const relativePathToAbsolute = (filePath) => path.resolve(filePath);
 const isAbsolutePathaFile = (filePath) => fs.lstatSync(filePath).isFile();
 const isAbsolutePathaFolder = (filePath) => fs.lstatSync(filePath).isDirectory();
 const verifyPathExtIsMD = (filePath) => (path.extname(filePath) === '.md');
-const getMDfilesFromArray = (fileArray) => fileArray.filter((element) => path.extname(element) === '.md');
 const getFilesInFolder = (filePath) => fs.readdirSync(filePath);
+const getMDfilesFromArray = (fileArray) => fileArray.filter((element) => path.extname(element) === '.md');
 
 const getFileFromPathOrFolder = (filePath) => {
   let arrayMdFiles = [];
   if (isAbsolutePathaFile(filePath)) {
     arrayMdFiles.push(filePath);
-  } else if (isAbsolutePathaFolder(filePath)) {
+  }
+  if (isAbsolutePathaFolder(filePath)) {
     getFilesInFolder(filePath).forEach((element) => {
       arrayMdFiles = arrayMdFiles.concat(getFileFromPathOrFolder(path.join(filePath, element)));
     });
@@ -45,6 +46,7 @@ const returnLinks = (arrayOfLinks, filePath) => {
   return linksArray;
 };
 
+
 const verifyLinkStatus = (array) => {
   let newObj = {};
   const newArray = [];
@@ -57,19 +59,50 @@ const verifyLinkStatus = (array) => {
       } else {
         newObj = { ...element, status, message: 'Fail' };
       }
-      // console.log('New Objetc', newObj);
+      return newObj;
+    }).catch((error) => {
+      console.log(error.message);
+      newObj = { ...element, message: 'Error: Invalid Link' };
+      // console.log('ahahaha', newObj);
       return newObj;
     }));
-    console.log('Returns of promise function', newArray);
+    // console.log('Returns of promise function', newArray);
   });
   return Promise.all(newArray);
 };
 
+const stats = (obj) => {
+  // console.log(obj);
+  const allLinks = obj.map((element) => element.link);
+  const links = allLinks.length;
+  const uniqueLinks = [...new Set(allLinks)].length;
+  return `Total Links in file: ${links} \nUnique Links: ${uniqueLinks}`;
+};
+
+const ValidateStats = (obj) => {
+  const allLinks = obj.map((element) => element.link);
+  const links = allLinks.length;
+  const uniqueLinks = [...new Set(allLinks)].length;
+  const invalidLinks = obj.filter((element) => element.message === 'Fail' && element.message === 'Fail');
+  const broken = invalidLinks.length;
+  return `Total Links in file: ${links} \nUnique Links: ${uniqueLinks} \nBroken: ${broken}`;
+};
+
+// reads links and shows all of them and unique ones
+
+// const text = getLinksFromString(readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/prueba/prueba.md'));
+// const arrayoflink = returnLinks(text, '/home/vilmango/Documents/LIM011-fe-md-links/prueba/prueba.md')';
 const text = getLinksFromString(readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
 const arrayoflink = returnLinks(text, '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md');
 // console.log(arrayoflink);
+// console.log('mew', arrayoflink);
 
-// return Promise.all(verifyLinkStatus(arrayoflink)).then((result) => console.log('rtrtrtrt', result));
+
+verifyLinkStatus(arrayoflink).then((result) => console.log(ValidateStats(result)));
+
+console.log(stats(arrayoflink));
+
+
 // console.log('ajajaja', verifyLinkStatus(arrayoflink));
 
 
@@ -86,6 +119,7 @@ const functions = {
   getLinksFromString,
   returnLinks,
   verifyLinkStatus,
+  stats,
 };
 
 module.exports = functions;

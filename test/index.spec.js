@@ -103,7 +103,8 @@ describe('getMDfilesFromArray', () => {
 describe('readMdFile', () => {
   const text = `Esto es un texto de prueba :3
 - [Pill de recursión - video](https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s)
-- [Pill de recursión - repositorio](https://github.com/merunga/pildora-recursion)`;
+- [Pill de recursión - repositorio](https://github.com/merunga/pildora-recursin)
+- [Pill de recursión - repositorio](xxxxxxx)`;
   it('Should be a function', () => {
     expect(typeof functions.readMdFile).toBe('function');
   });
@@ -154,9 +155,10 @@ describe('returnLinks', () => {
 describe('getLinksFromString', () => {
   const text = `Esto es un texto de prueba :3
 - [Pill de recursión - video](https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s)
-- [Pill de recursión - repositorio](https://github.com/merunga/pildora-recursion)`;
+- [Pill de recursión - repositorio](https://github.com/merunga/pildora-recursion)
+- [Pill de recursión - repositorio](https://githuunga/pildora-recursion)`;
   const links = ['[Pill de recursión - video](https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s)',
-    '[Pill de recursión - repositorio](https://github.com/merunga/pildora-recursion)',
+    '[Pill de recursión - repositorio](https://github.com/merunga/pildora-recursion)', '[Pill de recursión - repositorio](https://githuunga/pildora-recursion)',
   ];
   it('Should be a function', () => {
     expect(typeof functions.getLinksFromString).toBe('function');
@@ -166,12 +168,6 @@ describe('getLinksFromString', () => {
       .toEqual(links);
   });
 });
-describe('verifyLinkStatus', () => {
-  it('Should be a function', () => {
-    expect(typeof functions.verifyLinkStatus).toBe('function');
-  });
-});
-
 
 describe('verifyLinkStatus', () => {
   const dataToFetchFrom = [
@@ -181,7 +177,12 @@ describe('verifyLinkStatus', () => {
       file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
     },
     {
-      link: 'https://github.com/merunga/pildora-recursion',
+      link: 'https://github.com/merunga/pildora-recursin',
+      text: '[Pill de recursión - repositorio]',
+      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+    },
+    {
+      link: 'xxxxxxx',
       text: '[Pill de recursión - repositorio]',
       file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
     },
@@ -195,12 +196,31 @@ describe('verifyLinkStatus', () => {
       message: 'OK',
     },
     {
-      link: 'https://github.com/merunga/pildora-recursion',
+      link: 'https://github.com/merunga/pildora-recursin',
       text: '[Pill de recursión - repositorio]',
       file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
-      status: 200,
-      message: 'OK',
+      status: 404,
+      message: 'Fail',
     },
+    {
+      link: 'xxxxxxx',
+      text: '[Pill de recursión - repositorio]',
+      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      message: 'Error: Invalid Link',
+    },
+    {
+      link: 'xxxxxxx',
+      text: '[Pill de recursión - repositorio]',
+      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      message: 'Error: Invalid Link',
+    },
+  ];
+  const returnedDataCatch = [{
+    link: 'xxxxxxx',
+    text: '[Pill de recursión - repositorio]',
+    file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+    message: 'Error: Invalid Link',
+  },
   ];
 
   it('Should be a function', () => {
@@ -209,5 +229,34 @@ describe('verifyLinkStatus', () => {
   it('Should return an object ', (done) => functions.verifyLinkStatus(dataToFetchFrom).then((data) => {
     expect(data).toEqual(returnedData);
     done();
+  }).catch((e) => {
+    expect(e).toEqual(returnedDataCatch);
+    done();
   }));
+});
+
+describe('stats', () => {
+  const obj = [{
+    link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
+    text: '[Pill de recursión - video]',
+    file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+  },
+  {
+    link: 'https://github.com/merunga/pildora-recursin',
+    text: '[Pill de recursión - repositorio]',
+    file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+  },
+  {
+    link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
+    text: '[Pill de recursión - video]',
+    file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+  }];
+  const returnedStats = `Total Links in file: 3 
+Unique Links: 2`;
+  it('Should be a function', () => {
+    expect(typeof functions.stats).toBe('function');
+  });
+  it('Should return Total links in file and how many are Unique links', () => {
+    expect(functions.stats(obj)).toBe(returnedStats);
+  });
 });
