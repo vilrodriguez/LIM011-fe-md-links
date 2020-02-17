@@ -24,26 +24,6 @@ describe('resolveExistingPathToAbsolute', () => {
   });
 });
 
-// describe('isPathAbsolute', () => {
-//   it('Should be a function', () => {
-//     expect(typeof functions.isPathAbsolute).toBe('function');
-//   });
-//   it('Should return TRUE is the path is Absolute ', () => {
-//     expect(functions.isPathAbsolute('/home/vilmango/Documents/LIM011-fe-md-links/README.md')).toBe(true);
-//   });
-//   it('Should return FALSE if the path is Relative', () => {
-//     expect(functions.isPathAbsolute('../README.md')).toBe(false);
-//   });
-// });
-
-// describe('relativePathToAbsolute', () => {
-//   it('Should be a function', () => {
-//     expect(typeof functions.relativePathToAbsolute).toBe('function');
-//   });
-//   it('Should receive a relative path and return an absolute path', () => {
-//     expect(functions.relativePathToAbsolute('./README.md')).toBe('/home/vilmango/Documents/LIM011-fe-md-links/README.md');
-//   });
-// });
 describe('isAbsolutePathaFile', () => {
   it('Should be a function', () => {
     expect(typeof functions.isAbsolutePathaFile).toBe('function');
@@ -150,17 +130,20 @@ describe('getLinksFromString', () => {
   });
 });
 describe('returnLinks', () => {
-  const links = ['[Pill de recursión - video](https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s)',
-    '[Pill de recursión - repositorio](https://github.com/merunga/pildora-recursion)'];
   const obj = [
     {
-      text: '[Pill de recursión - video]',
       link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
+      text: '[Pill de recursión - video]',
       file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
     },
     {
+      link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
+      text: '[Pill de recursión - video]',
+      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+    },
+    {
+      link: 'https://github.com/merunga/pildora-recursin',
       text: '[Pill de recursión - repositorio]',
-      link: 'https://github.com/merunga/pildora-recursion',
       file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
     },
   ];
@@ -168,7 +151,7 @@ describe('returnLinks', () => {
     expect(typeof functions.returnLinks).toBe('function');
   });
   it('Should return an array of element with href/text/file', () => {
-    expect(functions.returnLinks(links, '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'))
+    expect(functions.returnLinks('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'))
       .toEqual(obj);
   });
 });

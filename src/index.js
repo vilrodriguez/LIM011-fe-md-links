@@ -23,8 +23,6 @@ const resolveExistingPathToAbsolute = (route) => {
   return 'Path does not exist';
 };
 
-console.log(resolveExistingPathToAbsolute('README.md'));
-
 const getFileFromPathOrFolder = (filePath) => {
   let arrayMdFiles = [];
   if (isAbsolutePathaFile(filePath)) {
@@ -62,20 +60,6 @@ const returnLinks = (filePath) => {
 };
 
 console.log(returnLinks('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
-
-// const returnLinks = (arrayOfLinks, filePath) => {
-//   const linksArray = [];
-//   arrayOfLinks.map((element) => {
-//     const url = element.match(/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm)[0];
-//     const cleanLink = url.substring(1, url.length - 1);
-//     return linksArray.push({
-//       link: cleanLink,
-//       text: element.match(/(\[[^\]]+\])/gm)[0],
-//       file: filePath,
-//     });
-//   });
-//   return linksArray;
-// };
 
 
 // const text = getLinksFromString(readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/prueba/prueba.md'));
