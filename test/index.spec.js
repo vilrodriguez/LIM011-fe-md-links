@@ -1,29 +1,49 @@
 
 const fetchMock = require('fetch-mock');
 const functions = require('../src/index.js');
+const validate = require('../src/validate.js');
 
 fetchMock.mock('*', 200);
 
-describe('isPathAbsolute', () => {
+describe('resolveExistingPathToAbsolute', () => {
+  const relativePath = 'README.md';
+  const absolutePath = '/home/vilmango/Documents/LIM011-fe-md-links/README.md';
+  const badPath = '/home/vilmango/Documents/LIM011-felinks/README.md';
+
   it('Should be a function', () => {
-    expect(typeof functions.isPathAbsolute).toBe('function');
+    expect(typeof functions.resolveExistingPathToAbsolute).toBe('function');
   });
-  it('Should return TRUE is the path is Absolute ', () => {
-    expect(functions.isPathAbsolute('/home/vilmango/Documents/LIM011-fe-md-links/README.md')).toBe(true);
+  it('Should return the same absolute Path', () => {
+    expect(functions.resolveExistingPathToAbsolute(absolutePath)).toBe(absolutePath);
   });
-  it('Should return FALSE if the path is Relative', () => {
-    expect(functions.isPathAbsolute('../README.md')).toBe(false);
+  it('Should resolve a relative Path to an Absolute Path', () => {
+    expect(functions.resolveExistingPathToAbsolute(relativePath)).toBe(absolutePath);
+  });
+  it('Should return an "Path doesnt Exist" Message', () => {
+    expect(functions.resolveExistingPathToAbsolute(badPath)).toBe('Path does not exist');
   });
 });
 
-describe('relativePathToAbsolute', () => {
-  it('Should be a function', () => {
-    expect(typeof functions.relativePathToAbsolute).toBe('function');
-  });
-  it('Should receive a relative path and return an absolute path', () => {
-    expect(functions.relativePathToAbsolute('./README.md')).toBe('/home/vilmango/Documents/LIM011-fe-md-links/README.md');
-  });
-});
+// describe('isPathAbsolute', () => {
+//   it('Should be a function', () => {
+//     expect(typeof functions.isPathAbsolute).toBe('function');
+//   });
+//   it('Should return TRUE is the path is Absolute ', () => {
+//     expect(functions.isPathAbsolute('/home/vilmango/Documents/LIM011-fe-md-links/README.md')).toBe(true);
+//   });
+//   it('Should return FALSE if the path is Relative', () => {
+//     expect(functions.isPathAbsolute('../README.md')).toBe(false);
+//   });
+// });
+
+// describe('relativePathToAbsolute', () => {
+//   it('Should be a function', () => {
+//     expect(typeof functions.relativePathToAbsolute).toBe('function');
+//   });
+//   it('Should receive a relative path and return an absolute path', () => {
+//     expect(functions.relativePathToAbsolute('./README.md')).toBe('/home/vilmango/Documents/LIM011-fe-md-links/README.md');
+//   });
+// });
 describe('isAbsolutePathaFile', () => {
   it('Should be a function', () => {
     expect(typeof functions.isAbsolutePathaFile).toBe('function');
@@ -210,22 +230,19 @@ describe('verifyLinkStatus', () => {
       message: 'Error: Invalid Link',
     },
   ];
-  const returnedDataCatch = [{
-    link: 'xxxxxxx',
-    text: '[Pill de recursión - repositorio]',
-    file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
-    message: 'Error: Invalid Link',
-  },
-  ];
+  // const returnedDataCatch = [{
+  //   link: 'xxxxxxx',
+  //   text: '[Pill de recursión - repositorio]',
+  //   file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+  //   message: 'Error: Invalid Link',
+  // },
+  // ];
 
   it('Should be a function', () => {
-    expect(typeof functions.verifyLinkStatus).toBe('function');
+    expect(typeof validate.verifyLinkStatus).toBe('function');
   });
-  it('Should return an object indicating the status of the HTTP request if valid or invalid ', (done) => functions.verifyLinkStatus(dataToFetchFrom).then((data) => {
+  it('Should return an object indicating the status of the HTTP request if valid or invalid ', (done) => validate.verifyLinkStatus(dataToFetchFrom).then((data) => {
     expect(data).toEqual(returnedData);
-    done();
-  }).catch((e) => {
-    expect(e).toEqual(returnedDataCatch);
     done();
   }));
 });
@@ -249,14 +266,14 @@ describe('stats', () => {
   const returnedStats = `Total Links in file: 3 
 Unique Links: 2`;
   it('Should be a function', () => {
-    expect(typeof functions.stats).toBe('function');
+    expect(typeof validate.stats).toBe('function');
   });
   it('Should return Total links in file and how many are Unique links', () => {
-    expect(functions.stats(obj)).toBe(returnedStats);
+    expect(validate.stats(obj)).toBe(returnedStats);
   });
 });
 
-describe('ValidateStats', () => {
+describe('validateBrokenLinks', () => {
   const obj = [
     {
       link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
@@ -284,9 +301,9 @@ describe('ValidateStats', () => {
 Unique Links: 2 
 Broken: 1`;
   it('Should be a function', () => {
-    expect(typeof functions.ValidateStats).toBe('function');
+    expect(typeof validate.validateBrokenLinks).toBe('function');
   });
   it('Should return #of Links, # of Unique Links and # of Broken links', () => {
-    expect(functions.ValidateStats(obj)).toEqual(returnedStats);
+    expect(validate.validateBrokenLinks(obj)).toEqual(returnedStats);
   });
 });
