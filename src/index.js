@@ -45,57 +45,37 @@ const readMdFile = (filePathMdFile) => {
 
 const getLinksFromString = (stringFromFile) => stringFromFile.match(/(\[[^\]]+\])([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm);
 
-const returnLinks = (arrayOfLinks, filePath) => {
-  const linksArray = [];
-  arrayOfLinks.map((element) => {
+
+const returnLinks = (filePath) => {
+  const contentFromFile= readMdFile(filePath);
+  const linksArray = getLinksFromString(contentFromFile);
+  const newlinksArray = [];
+  linksArray.map((element) => {
     const url = element.match(/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm)[0];
     const cleanLink = url.substring(1, url.length - 1);
-    return linksArray.push({
+    return newlinksArray.push({
       link: cleanLink,
       text: element.match(/(\[[^\]]+\])/gm)[0],
       file: filePath,
     });
   });
-  return linksArray;
+  return newlinksArray;
 };
 
+console.log(returnLinks('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
 
-// const verifyLinkStatus = (array) => {
-//   let newObj = {};
-//   const newArray = [];
-//   array.forEach((element) => {
-//     newArray.push(fetch(element.link).then((response) => {
-//       const { status } = response;
-//       const { statusText } = response;
-//       if (status >= 200 && status <= 399) {
-//         newObj = { ...element, status, message: statusText };
-//       } else {
-//         newObj = { ...element, status, message: 'Fail' };
-//       }
-//       return newObj;
-//     }).catch((error) => {
-//       console.log(error.message);
-//       newObj = { ...element, message: 'Error: Invalid Link' };
-//       return newObj;
-//     }));
+// const returnLinks = (arrayOfLinks, filePath) => {
+//   const linksArray = [];
+//   arrayOfLinks.map((element) => {
+//     const url = element.match(/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm)[0];
+//     const cleanLink = url.substring(1, url.length - 1);
+//     return linksArray.push({
+//       link: cleanLink,
+//       text: element.match(/(\[[^\]]+\])/gm)[0],
+//       file: filePath,
+//     });
 //   });
-//   return Promise.all(newArray);
-// };
-
-// const stats = (obj) => {
-//   const allLinks = obj.map((element) => element.link);
-//   const links = allLinks.length;
-//   const uniqueLinks = [...new Set(allLinks)].length;
-//   return `Total Links in file: ${links} \nUnique Links: ${uniqueLinks}`;
-// };
-
-// const ValidateStats = (obj) => {
-//   const allLinks = obj.map((element) => element.link);
-//   const links = allLinks.length;
-//   const uniqueLinks = [...new Set(allLinks)].length;
-//   const invalidLinks = obj.filter((element) => element.message === 'Fail');
-//   const broken = invalidLinks.length;
-//   return `Total Links in file: ${links} \nUnique Links: ${uniqueLinks} \nBroken: ${broken}`;
+//   return linksArray;
 // };
 
 
@@ -124,9 +104,6 @@ const functions = {
   readMdFile,
   getLinksFromString,
   returnLinks,
-  // verifyLinkStatus,
-  // stats,
-  // ValidateStats,
 };
 
 module.exports = functions;
