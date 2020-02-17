@@ -47,17 +47,16 @@ const getLinksFromString = (stringFromFile) => stringFromFile.match(/(\[[^\]]+\]
 
 
 const returnLinks = (filePath) => {
-  const contentFromFile= readMdFile(filePath);
+  const contentFromFile = readMdFile(filePath);
   const linksArray = getLinksFromString(contentFromFile);
-  const newlinksArray = [];
-  linksArray.map((element) => {
+  const newlinksArray = linksArray.map((element) => {
     const url = element.match(/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm)[0];
     const cleanLink = url.substring(1, url.length - 1);
-    return newlinksArray.push({
+    return {
       link: cleanLink,
       text: element.match(/(\[[^\]]+\])/gm)[0],
       file: filePath,
-    });
+    };
   });
   return newlinksArray;
 };
