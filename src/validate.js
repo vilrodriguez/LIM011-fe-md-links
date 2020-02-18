@@ -1,9 +1,11 @@
 const fetch = require('node-fetch');
+const functions = require('../src/index.js');
 
-const verifyLinkStatus = (array) => {
+const verifyLinkStatus = (path) => {
+  const linksArray = functions.returnLinks(path);
   let newObj = {};
   const newArray = [];
-  array.forEach((element) => {
+  linksArray.forEach((element) => {
     newArray.push(fetch(element.link).then((response) => {
       const { status } = response;
       const { statusText } = response;
@@ -21,6 +23,11 @@ const verifyLinkStatus = (array) => {
   });
   return Promise.all(newArray);
 };
+
+// console.log(verifyLinkStatus('/home/
+// vilmango/Documents/LIM011-fe-md-links/prueba/aaskjdhajkssak.md')
+// .then((res) => console.log('asasdas', res)).catch((e) => console.log(e)));
+
 
 const stats = (obj) => {
   const allLinks = obj.map((element) => element.link);
@@ -45,3 +52,24 @@ const validate = {
 };
 
 module.exports = validate;
+// const verifyLinkStatus = (array) => {
+//   let newObj = {};
+//   const newArray = [];
+//   array.forEach((element) => {
+//     newArray.push(fetch(element.link).then((response) => {
+//       const { status } = response;
+//       const { statusText } = response;
+//       if (status >= 200 && status <= 399) {
+//         newObj = { ...element, status, message: statusText };
+//       } else {
+//         newObj = { ...element, status, message: 'Fail' };
+//       }
+//       return newObj;
+//     }).catch((error) => {
+//       console.log(error.message);
+//       newObj = { ...element, message: 'Error: Invalid Link' };
+//       return newObj;
+//     }));
+//   });
+//   return Promise.all(newArray);
+// };

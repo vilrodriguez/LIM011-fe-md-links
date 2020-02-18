@@ -1,14 +1,15 @@
-// const functions = require('../src/index.js');
+const functions = require('../src/index.js');
+const validate = require ('../src/validate.js');
 
-// const mdlinks = (path, options) => {
-//   new Promise((resolve) => {
-//     if (functions.validate === true) {
-//       resolve(verifyLinkStatus(path));
-//     } else {
-//       resolve(
+const mdlinks = (path, options) => {
+  new Promise((resolve) => {
+    if (options.validate === true) {
+      resolve(validate.verifyLinkStatus(path));
+    } else {
+      resolve(
 
-//         returnLinks(arrayOfLinks, path),
-//       );
-//     }
-//   });
-// };
+        returnLinks(arrayOfLinks, path),
+      );
+    }
+  });
+};
