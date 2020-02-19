@@ -1,21 +1,8 @@
-/*
-const mdLinks = require("md-links");
 
-mdLinks("./some/example.md")
-  .then(links => {
-    // => [{ href, text, file }]
-  })
-  .catch(console.error);
+// const cli = require('../src/mdlinksCli.js');
 
-mdLinks("./some/example.md", { validate: true })
-  .then(links => {
-    // => [{ href, text, file, status, ok }]
-  })
-  .catch(console.error);
+// const path = process.argv[2];
 
-mdLinks("./some/dir")
-  .then(links => {
-    // => [{ href, text, file }]
-  })
-  .catch(console.error);
-  */
+// const validate = process.argv[3];
+
+// const stat = process.argv[4];
