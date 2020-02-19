@@ -38,9 +38,14 @@ const readMdFile = (filesPath) => {
   const string = fs.readFileSync(filesPath);
   return string.toString();
 };
+// const string = `Esto es un texto de prueba :3
+// - [Pill de recursión - video](https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s)
+// - [Pill de recursión - video](https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s)
+// - [Pill de recursión - repositorio](https://github.com/merunga/pildora-recursin)
+// - [Pill de recursión - repositorio](xxxxxxx)`;
+const getLinksFromString = (stringFromFile) => stringFromFile.match(/\[(.+)\]\((.+)\)/gm);
 
-const getLinksFromString = (stringFromFile) => stringFromFile.match(/(\[[^\]]+\])([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm);
-
+// console.log(getLinksFromString(string));
 const returnLinks = (filePath) => {
   const arrayOfFiles = getFileFromPathOrFolder(filePath);
   const content = arrayOfFiles.map((ele) => {
@@ -49,7 +54,7 @@ const returnLinks = (filePath) => {
     return stringArray;
   });
   const newlinksArray = content.flat().map((element) => {
-    const url = element.match(/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm)[0];
+    const url = element.match(/\((.+)\)/gm)[0];
     const cleanLink = url.substring(1, url.length - 1);
     return {
       link: cleanLink,
@@ -59,6 +64,7 @@ const returnLinks = (filePath) => {
   });
   return newlinksArray;
 };
+// console.log(returnLinks('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
 
 // console.log('xxx', returnLinks('/home/vilmango/Documents/LIM011-fe-md-links/prueba'));
 const functions = {

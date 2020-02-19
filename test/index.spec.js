@@ -153,6 +153,11 @@ describe('returnLinks', () => {
       text: '[Pill de recursión - repositorio]',
       file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
     },
+    {
+      link: 'xxxxxxx',
+      text: '[Pill de recursión - repositorio]',
+      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+    },
   ];
   it('Should be a function', () => {
     expect(typeof functions.returnLinks).toBe('function');
@@ -238,7 +243,8 @@ describe('verifyLinkStatus', () => {
   it('Should be a function', () => {
     expect(typeof validate.verifyLinkStatus).toBe('function');
   });
-  it('Should return an object indicating the status of the HTTP request if valid or invalid ', (done) => validate.verifyLinkStatus('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md').then((data) => { console.log(data);
+  it('Should return an object indicating the status of the HTTP request if valid or invalid ', (done) => validate.verifyLinkStatus('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md').then((data) => {
+    console.log(data);
     expect(data).toEqual(returnedData);
     done();
   }));
@@ -326,7 +332,19 @@ describe('mdlinks', () => {
       text: '[Pill de recursión - repositorio]',
       file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
     },
+    {
+      link: 'xxxxxxx',
+      text: '[Pill de recursión - repositorio]',
+      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+    },
   ];
+  // const returnedDataCatch = [{
+  //   link: 'xxxxxxx',
+  //   text: '[Pill de recursión - repositorio]',
+  //   file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+  //   message: 'Error: Invalid Link',
+  // },
+  // ];
   const returnedData = [
     {
       link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
@@ -348,6 +366,12 @@ describe('mdlinks', () => {
       file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
       status: 404,
       message: 'Fail',
+    },
+    {
+      link: 'xxxxxxx',
+      text: '[Pill de recursión - repositorio]',
+      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      message: 'Error: Invalid Link',
     },
   ];
 
