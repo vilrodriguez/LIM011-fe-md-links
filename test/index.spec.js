@@ -1,10 +1,17 @@
+// const fetchMock = require('../__mocks__/node-fetch.js');
 
-const fetchMock = require('fetch-mock');
+// fetchMock.mock('https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s', 200);
+// fetchMock.mock('https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s', 200);
+// fetchMock.mock('https://github.com/merunga/pildora-recursin', 404);
+// fetchMock.mock('xxxxxxx', { throws: new TypeError('Failed to fetch') });
+
+jest.mock('node-fetch');
 const functions = require('../src/index.js');
 const validate = require('../src/validate.js');
 const mdlinks = require('../src/mdlinks.js');
 
-fetchMock.mock('*', 200);
+// fetchMock.mock('*', 200);
+
 
 describe('resolveExistingPathToAbsolute', () => {
   const relativePath = 'README.md';
@@ -231,7 +238,7 @@ describe('verifyLinkStatus', () => {
   it('Should be a function', () => {
     expect(typeof validate.verifyLinkStatus).toBe('function');
   });
-  it('Should return an object indicating the status of the HTTP request if valid or invalid ', (done) => validate.verifyLinkStatus('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md').then((data) => {
+  it('Should return an object indicating the status of the HTTP request if valid or invalid ', (done) => validate.verifyLinkStatus('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md').then((data) => { console.log(data);
     expect(data).toEqual(returnedData);
     done();
   }));

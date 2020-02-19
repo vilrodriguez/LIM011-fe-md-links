@@ -5,6 +5,7 @@ const verifyLinkStatus = (path) => {
   const linksArray = functions.returnLinks(path);
   let newObj = {};
   const newArray = [];
+  console.log(linksArray);
   linksArray.forEach((element) => {
     newArray.push(fetch(element.link).then((response) => {
       const { status } = response;
