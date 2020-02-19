@@ -1,4 +1,3 @@
-//  Syntax for including Path module in your app
 const path = require('path');
 const fs = require('fs');
 
@@ -38,14 +37,9 @@ const readMdFile = (filesPath) => {
   const string = fs.readFileSync(filesPath);
   return string.toString();
 };
-// const string = `Esto es un texto de prueba :3
-// - [Pill de recursión - video](https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s)
-// - [Pill de recursión - video](https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s)
-// - [Pill de recursión - repositorio](https://github.com/merunga/pildora-recursin)
-// - [Pill de recursión - repositorio](xxxxxxx)`;
+
 const getLinksFromString = (stringFromFile) => stringFromFile.match(/\[(.+)\]\((.+)\)/gm);
 
-// console.log(getLinksFromString(string));
 const returnLinks = (filePath) => {
   const arrayOfFiles = getFileFromPathOrFolder(filePath);
   const content = arrayOfFiles.map((ele) => {
@@ -64,9 +58,7 @@ const returnLinks = (filePath) => {
   });
   return newlinksArray;
 };
-// console.log(returnLinks('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
 
-// console.log('xxx', returnLinks('/home/vilmango/Documents/LIM011-fe-md-links/prueba'));
 const functions = {
   resolveExistingPathToAbsolute,
   isAbsolutePathaFile,
@@ -80,19 +72,3 @@ const functions = {
 };
 
 module.exports = functions;
-// const isPathAbsolute = (filePath) => path.isAbsolute(filePath);
-// const relativePathToAbsolute = (filePath) => path.resolve(filePath);
-// const verifyPathExtIsMD = (filePath) => (path.extname(filePath) === '.md');
-// const getFileFromPathOrFolder = (filePath) => {
-//   const files = resolveExistingPathToAbsolute(filePath);
-//   let arrayFiles = [];
-//   if (isAbsolutePathaFile(files)) {
-//     arrayFiles.push(files);
-//   }
-//   if (isAbsolutePathaFolder(files)) {
-//     getFilesInFolder(files).forEach((element) => {
-//       arrayFiles = arrayFiles.concat(getFileFromPathOrFolder(path.join(filePath, element)));
-//     });
-//   }
-//   return arrayFiles;
-// };
