@@ -2,12 +2,8 @@
 const path = require('path');
 const fs = require('fs');
 
-
-// const isPathAbsolute = (filePath) => path.isAbsolute(filePath);
-// const relativePathToAbsolute = (filePath) => path.resolve(filePath);
 const isAbsolutePathaFile = (filePath) => fs.lstatSync(filePath).isFile();
 const isAbsolutePathaFolder = (filePath) => fs.lstatSync(filePath).isDirectory();
-const verifyPathExtIsMD = (filePath) => (path.extname(filePath) === '.md');
 const getFilesInFolder = (filePath) => fs.readdirSync(filePath);
 const getMDfilesFromArray = (fileArray) => fileArray.filter((element) => path.extname(element) === '.md');
 
@@ -23,35 +19,42 @@ const resolveExistingPathToAbsolute = (route) => {
   return 'Path does not exist';
 };
 
-console.log(resolveExistingPathToAbsolute('README.md'));
-
 const getFileFromPathOrFolder = (filePath) => {
-  let arrayMdFiles = [];
-  if (isAbsolutePathaFile(filePath)) {
-    arrayMdFiles.push(filePath);
+  const files = resolveExistingPathToAbsolute(filePath);
+  let arrayFiles = [];
+  if (isAbsolutePathaFile(files) && path.extname(files) === '.md') {
+    arrayFiles.push(files);
   }
-  if (isAbsolutePathaFolder(filePath)) {
-    getFilesInFolder(filePath).forEach((element) => {
-      arrayMdFiles = arrayMdFiles.concat(getFileFromPathOrFolder(path.join(filePath, element)));
+  if (isAbsolutePathaFolder(files)) {
+    getFilesInFolder(files).forEach((element) => {
+      if (path.extname(element) === '.md') {
+        arrayFiles = arrayFiles.concat(getFileFromPathOrFolder(path.join(filePath, element)));
+      }
     });
   }
-  return arrayMdFiles;
+  return arrayFiles;
 };
-
-const readMdFile = (filePathMdFile) => {
-  const string = fs.readFileSync(filePathMdFile);
+const readMdFile = (filesPath) => {
+  const string = fs.readFileSync(filesPath);
   return string.toString();
 };
+// const string = `Esto es un texto de prueba :3
+// - [Pill de recursión - video](https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s)
+// - [Pill de recursión - video](https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s)
+// - [Pill de recursión - repositorio](https://github.com/merunga/pildora-recursin)
+// - [Pill de recursión - repositorio](xxxxxxx)`;
+const getLinksFromString = (stringFromFile) => stringFromFile.match(/\[(.+)\]\((.+)\)/gm);
 
-
-const getLinksFromString = (stringFromFile) => stringFromFile.match(/(\[[^\]]+\])([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm);
-
-
+// console.log(getLinksFromString(string));
 const returnLinks = (filePath) => {
-  const contentFromFile = readMdFile(filePath);
-  const linksArray = getLinksFromString(contentFromFile);
-  const newlinksArray = linksArray.map((element) => {
-    const url = element.match(/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm)[0];
+  const arrayOfFiles = getFileFromPathOrFolder(filePath);
+  const content = arrayOfFiles.map((ele) => {
+    const contentOfFile = readMdFile(ele);
+    const stringArray = getLinksFromString(contentOfFile);
+    return stringArray;
+  });
+  const newlinksArray = content.flat().map((element) => {
+    const url = element.match(/\((.+)\)/gm)[0];
     const cleanLink = url.substring(1, url.length - 1);
     return {
       link: cleanLink,
@@ -61,49 +64,35 @@ const returnLinks = (filePath) => {
   });
   return newlinksArray;
 };
+// console.log(returnLinks('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
 
-console.log(returnLinks('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
-
-// const returnLinks = (arrayOfLinks, filePath) => {
-//   const linksArray = [];
-//   arrayOfLinks.map((element) => {
-//     const url = element.match(/([\S]|^)(((https?:\/\/)|(www\.))(\S+))/gm)[0];
-//     const cleanLink = url.substring(1, url.length - 1);
-//     return linksArray.push({
-//       link: cleanLink,
-//       text: element.match(/(\[[^\]]+\])/gm)[0],
-//       file: filePath,
-//     });
-//   });
-//   return linksArray;
-// };
-
-
-// const text = getLinksFromString(readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/prueba/prueba.md'));
-// const arrayoflink = returnLinks(text, '/home/vilmango/Documents/LIM011-fe-md-links/prueba/prueba.md')';
-// const text = getLinksFromString(readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'));
-// // const arrayoflink = returnLinks(text, '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md');
-// // console.log(arrayoflink);
-// // console.log('mew', arrayoflink);
-// verifyLinkStatus(arrayoflink).then((result) => {
-//   // console.log('aaaa', result);
-//  ValidateStats(result);
-// });
-// console.log(stats(arrayoflink));
-// console.log('ajajaja', verifyLinkStatus(arrayoflink));
-
-
+// console.log('xxx', returnLinks('/home/vilmango/Documents/LIM011-fe-md-links/prueba'));
 const functions = {
   resolveExistingPathToAbsolute,
   isAbsolutePathaFile,
   isAbsolutePathaFolder,
-  verifyPathExtIsMD,
   getFilesInFolder,
   getMDfilesFromArray,
   getFileFromPathOrFolder,
-  readMdFile,
   getLinksFromString,
   returnLinks,
+  readMdFile,
 };
 
 module.exports = functions;
+// const isPathAbsolute = (filePath) => path.isAbsolute(filePath);
+// const relativePathToAbsolute = (filePath) => path.resolve(filePath);
+// const verifyPathExtIsMD = (filePath) => (path.extname(filePath) === '.md');
+// const getFileFromPathOrFolder = (filePath) => {
+//   const files = resolveExistingPathToAbsolute(filePath);
+//   let arrayFiles = [];
+//   if (isAbsolutePathaFile(files)) {
+//     arrayFiles.push(files);
+//   }
+//   if (isAbsolutePathaFolder(files)) {
+//     getFilesInFolder(files).forEach((element) => {
+//       arrayFiles = arrayFiles.concat(getFileFromPathOrFolder(path.join(filePath, element)));
+//     });
+//   }
+//   return arrayFiles;
+// };

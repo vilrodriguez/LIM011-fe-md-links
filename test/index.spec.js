@@ -1,9 +1,17 @@
+// const fetchMock = require('../__mocks__/node-fetch.js');
 
-const fetchMock = require('fetch-mock');
+// fetchMock.mock('https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s', 200);
+// fetchMock.mock('https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s', 200);
+// fetchMock.mock('https://github.com/merunga/pildora-recursin', 404);
+// fetchMock.mock('xxxxxxx', { throws: new TypeError('Failed to fetch') });
+
+jest.mock('node-fetch');
 const functions = require('../src/index.js');
 const validate = require('../src/validate.js');
+const mdlinks = require('../src/mdlinks.js');
 
-fetchMock.mock('*', 200);
+// fetchMock.mock('*', 200);
+
 
 describe('resolveExistingPathToAbsolute', () => {
   const relativePath = 'README.md';
@@ -24,26 +32,6 @@ describe('resolveExistingPathToAbsolute', () => {
   });
 });
 
-// describe('isPathAbsolute', () => {
-//   it('Should be a function', () => {
-//     expect(typeof functions.isPathAbsolute).toBe('function');
-//   });
-//   it('Should return TRUE is the path is Absolute ', () => {
-//     expect(functions.isPathAbsolute('/home/vilmango/Documents/LIM011-fe-md-links/README.md')).toBe(true);
-//   });
-//   it('Should return FALSE if the path is Relative', () => {
-//     expect(functions.isPathAbsolute('../README.md')).toBe(false);
-//   });
-// });
-
-// describe('relativePathToAbsolute', () => {
-//   it('Should be a function', () => {
-//     expect(typeof functions.relativePathToAbsolute).toBe('function');
-//   });
-//   it('Should receive a relative path and return an absolute path', () => {
-//     expect(functions.relativePathToAbsolute('./README.md')).toBe('/home/vilmango/Documents/LIM011-fe-md-links/README.md');
-//   });
-// });
 describe('isAbsolutePathaFile', () => {
   it('Should be a function', () => {
     expect(typeof functions.isAbsolutePathaFile).toBe('function');
@@ -67,18 +55,18 @@ describe('isAbsolutePathaFolder', () => {
   });
 });
 
-// refactored function test
-describe('verifyPathExtIsMD', () => {
-  it('Should be a function', () => {
-    expect(typeof functions.verifyPathExtIsMD).toBe('function');
-  });
-  it('Should return true if file ext is .md', () => {
-    expect(functions.verifyPathExtIsMD('/home/vilmango/Documents/LIM011-fe-md-links/README.md')).toBe(true);
-  });
-  it('Should return false if file ext is not .md', () => {
-    expect(functions.verifyPathExtIsMD('/home/vilmango/Documents/LIM011-fe-md-links/')).toBe(false);
-  });
-});
+// // refactored function test
+// describe('verifyPathExtIsMD', () => {
+//   it('Should be a function', () => {
+//     expect(typeof functions.verifyPathExtIsMD).toBe('function');
+//   });
+//   it('Should return true if file ext is .md', () => {
+//     expect(functions.verifyPathExtIsMD('/home/vilmango/Documents/LIM011-fe-md-links/README.md')).toBe(true);
+//   });
+//   it('Should return false if file ext is not .md', () => {
+//     expect(functions.verifyPathExtIsMD('/home/vilmango/Documents/LIM011-fe-md-links/')).toBe(false);
+//   });
+// });
 
 describe('getFilesInFolder', () => {
   it('Should be a function', () => {
@@ -86,32 +74,31 @@ describe('getFilesInFolder', () => {
   });
   it('Should return an array with files in folder', () => {
     expect(functions.getFilesInFolder('/home/vilmango/Documents/LIM011-fe-md-links/prueba/'))
-      .toEqual(['aaskjdhajkssak.md', 'pato.html', 'prueba.md']);
+      .toEqual(['pato.html', 'prueba.md']);
   });
 });
 
-// '/home/vilmango/Documents/LIM011-fe-md-links/prueba'
-
 describe('getFileFromPathOrFolder', () => {
+  const pathWithMDFile = '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md';
+  const pathWithFolder = '/home/vilmango/Documents/LIM011-fe-md-links/prueba';
+  const arrayWithMDfiles = [
+    '/home/vilmango/Documents/LIM011-fe-md-links/prueba/prueba.md',
+  ];
   it('Should be a function', () => {
     expect(typeof functions.getFileFromPathOrFolder).toBe('function');
   });
   it('Should return an array of 1 element ending in a file', () => {
-    expect(functions.getFileFromPathOrFolder('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'))
-      .toEqual(['/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md']);
+    expect(functions.getFileFromPathOrFolder(pathWithMDFile))
+      .toEqual([pathWithMDFile]);
   });
   it('Should return an array of paths ending in a file', () => {
-    expect(functions.getFileFromPathOrFolder('/home/vilmango/Documents/LIM011-fe-md-links/prueba'))
-      .toEqual([
-        '/home/vilmango/Documents/LIM011-fe-md-links/prueba/aaskjdhajkssak.md',
-        '/home/vilmango/Documents/LIM011-fe-md-links/prueba/pato.html',
-        '/home/vilmango/Documents/LIM011-fe-md-links/prueba/prueba.md',
-      ]);
+    expect(functions.getFileFromPathOrFolder(pathWithFolder))
+      .toEqual(arrayWithMDfiles);
   });
 });
 describe('getMDfilesFromArray', () => {
-  const arrayOfPaths = ['/home/vilmango/Documents/LIM011-fe-md-links/prueba/aaskjdhajkssak.md', '/home/vilmango/Documents/LIM011-fe-md-links/prueba/pato.html', '/home/vilmango/Documents/LIM011-fe-md-links/prueba/prueba.md'];
-  const returnedArray = ['/home/vilmango/Documents/LIM011-fe-md-links/prueba/aaskjdhajkssak.md', '/home/vilmango/Documents/LIM011-fe-md-links/prueba/prueba.md'];
+  const arrayOfPaths = ['/home/vilmango/Documents/LIM011-fe-md-links/prueba/pato.html', '/home/vilmango/Documents/LIM011-fe-md-links/prueba/prueba.md'];
+  const returnedArray = ['/home/vilmango/Documents/LIM011-fe-md-links/prueba/prueba.md'];
   it('Should be a function', () => {
     expect(typeof functions.getMDfilesFromArray).toBe('function');
   });
@@ -150,17 +137,25 @@ describe('getLinksFromString', () => {
   });
 });
 describe('returnLinks', () => {
-  const links = ['[Pill de recursión - video](https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s)',
-    '[Pill de recursión - repositorio](https://github.com/merunga/pildora-recursion)'];
   const obj = [
     {
-      text: '[Pill de recursión - video]',
       link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
+      text: '[Pill de recursión - video]',
       file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
     },
     {
+      link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
+      text: '[Pill de recursión - video]',
+      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+    },
+    {
+      link: 'https://github.com/merunga/pildora-recursin',
       text: '[Pill de recursión - repositorio]',
-      link: 'https://github.com/merunga/pildora-recursion',
+      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+    },
+    {
+      link: 'xxxxxxx',
+      text: '[Pill de recursión - repositorio]',
       file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
     },
   ];
@@ -168,7 +163,7 @@ describe('returnLinks', () => {
     expect(typeof functions.returnLinks).toBe('function');
   });
   it('Should return an array of element with href/text/file', () => {
-    expect(functions.returnLinks(links, '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'))
+    expect(functions.returnLinks('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'))
       .toEqual(obj);
   });
 });
@@ -191,24 +186,31 @@ describe('getLinksFromString', () => {
 });
 
 describe('verifyLinkStatus', () => {
-  const dataToFetchFrom = [
+  // const dataToFetchFrom = [
+  //   {
+  //     link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
+  //     text: '[Pill de recursión - video]',
+  //     file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+  //   },
+  //   {
+  //     link: 'https://github.com/merunga/pildora-recursin',
+  //     text: '[Pill de recursión - repositorio]',
+  //     file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+  //   },
+  //   {
+  //     link: 'xxxxxxx',
+  //     text: '[Pill de recursión - repositorio]',
+  //     file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+  //   },
+  // ];
+  const returnedData = [
     {
       link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
       text: '[Pill de recursión - video]',
       file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      status: 200,
+      message: 'OK',
     },
-    {
-      link: 'https://github.com/merunga/pildora-recursin',
-      text: '[Pill de recursión - repositorio]',
-      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
-    },
-    {
-      link: 'xxxxxxx',
-      text: '[Pill de recursión - repositorio]',
-      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
-    },
-  ];
-  const returnedData = [
     {
       link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
       text: '[Pill de recursión - video]',
@@ -241,10 +243,15 @@ describe('verifyLinkStatus', () => {
   it('Should be a function', () => {
     expect(typeof validate.verifyLinkStatus).toBe('function');
   });
-  it('Should return an object indicating the status of the HTTP request if valid or invalid ', (done) => validate.verifyLinkStatus(dataToFetchFrom).then((data) => {
+  it('Should return an object indicating the status of the HTTP request if valid or invalid ', (done) => validate.verifyLinkStatus('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md').then((data) => {
+    console.log(data);
     expect(data).toEqual(returnedData);
     done();
   }));
+  // it('Should return an object indicating the status of the HTTP request if valid or invalid ', (done) => validate.verifyLinkStatus('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md').then((data) => {
+  //   expect(data).toEqual(returnedData);
+  //   done();
+  // }));
 });
 
 describe('stats', () => {
@@ -306,4 +313,76 @@ Broken: 1`;
   it('Should return #of Links, # of Unique Links and # of Broken links', () => {
     expect(validate.validateBrokenLinks(obj)).toEqual(returnedStats);
   });
+});
+
+describe('mdlinks', () => {
+  const returnedData2 = [
+    {
+      link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
+      text: '[Pill de recursión - video]',
+      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+    },
+    {
+      link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
+      text: '[Pill de recursión - video]',
+      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+    },
+    {
+      link: 'https://github.com/merunga/pildora-recursin',
+      text: '[Pill de recursión - repositorio]',
+      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+    },
+    {
+      link: 'xxxxxxx',
+      text: '[Pill de recursión - repositorio]',
+      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+    },
+  ];
+  // const returnedDataCatch = [{
+  //   link: 'xxxxxxx',
+  //   text: '[Pill de recursión - repositorio]',
+  //   file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+  //   message: 'Error: Invalid Link',
+  // },
+  // ];
+  const returnedData = [
+    {
+      link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
+      text: '[Pill de recursión - video]',
+      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      status: 200,
+      message: 'OK',
+    },
+    {
+      link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
+      text: '[Pill de recursión - video]',
+      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      status: 200,
+      message: 'OK',
+    },
+    {
+      link: 'https://github.com/merunga/pildora-recursin',
+      text: '[Pill de recursión - repositorio]',
+      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      status: 404,
+      message: 'Fail',
+    },
+    {
+      link: 'xxxxxxx',
+      text: '[Pill de recursión - repositorio]',
+      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      message: 'Error: Invalid Link',
+    },
+  ];
+
+  it('Should be a function ', () => {
+    expect(typeof mdlinks).toBe('function');
+  });
+
+  it('Should return an array of links with text and path if Validate is False', () => expect(mdlinks('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md', { validate: false })).resolves.toEqual(returnedData2));
+  it('Should return an array of links with OK status if Validate is True', () => expect(mdlinks('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md', { validate: true })).resolves.toEqual(returnedData));
+  // it('Should return an array of links with OK status if Validate is True', (done) => mdlinks('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md', true).then((data) => {
+  //   expect(data).toEqual(returnedData);
+  //   done();
+  // }));
 });
