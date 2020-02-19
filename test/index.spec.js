@@ -1,17 +1,7 @@
-// const fetchMock = require('../__mocks__/node-fetch.js');
-
-// fetchMock.mock('https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s', 200);
-// fetchMock.mock('https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s', 200);
-// fetchMock.mock('https://github.com/merunga/pildora-recursin', 404);
-// fetchMock.mock('xxxxxxx', { throws: new TypeError('Failed to fetch') });
-
 jest.mock('node-fetch');
 const functions = require('../src/index.js');
 const validate = require('../src/validate.js');
 const mdlinks = require('../src/mdlinks.js');
-
-// fetchMock.mock('*', 200);
-
 
 describe('resolveExistingPathToAbsolute', () => {
   const relativePath = 'README.md';
@@ -54,19 +44,6 @@ describe('isAbsolutePathaFolder', () => {
     expect(functions.isAbsolutePathaFolder('/home/vilmango/Documents/LIM011-fe-md-links')).toBe(true);
   });
 });
-
-// // refactored function test
-// describe('verifyPathExtIsMD', () => {
-//   it('Should be a function', () => {
-//     expect(typeof functions.verifyPathExtIsMD).toBe('function');
-//   });
-//   it('Should return true if file ext is .md', () => {
-//     expect(functions.verifyPathExtIsMD('/home/vilmango/Documents/LIM011-fe-md-links/README.md')).toBe(true);
-//   });
-//   it('Should return false if file ext is not .md', () => {
-//     expect(functions.verifyPathExtIsMD('/home/vilmango/Documents/LIM011-fe-md-links/')).toBe(false);
-//   });
-// });
 
 describe('getFilesInFolder', () => {
   it('Should be a function', () => {
@@ -186,23 +163,6 @@ describe('getLinksFromString', () => {
 });
 
 describe('verifyLinkStatus', () => {
-  // const dataToFetchFrom = [
-  //   {
-  //     link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
-  //     text: '[Pill de recursión - video]',
-  //     file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
-  //   },
-  //   {
-  //     link: 'https://github.com/merunga/pildora-recursin',
-  //     text: '[Pill de recursión - repositorio]',
-  //     file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
-  //   },
-  //   {
-  //     link: 'xxxxxxx',
-  //     text: '[Pill de recursión - repositorio]',
-  //     file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
-  //   },
-  // ];
   const returnedData = [
     {
       link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
@@ -232,26 +192,14 @@ describe('verifyLinkStatus', () => {
       message: 'Error: Invalid Link',
     },
   ];
-  // const returnedDataCatch = [{
-  //   link: 'xxxxxxx',
-  //   text: '[Pill de recursión - repositorio]',
-  //   file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
-  //   message: 'Error: Invalid Link',
-  // },
-  // ];
 
   it('Should be a function', () => {
     expect(typeof validate.verifyLinkStatus).toBe('function');
   });
   it('Should return an object indicating the status of the HTTP request if valid or invalid ', (done) => validate.verifyLinkStatus('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md').then((data) => {
-    console.log(data);
     expect(data).toEqual(returnedData);
     done();
   }));
-  // it('Should return an object indicating the status of the HTTP request if valid or invalid ', (done) => validate.verifyLinkStatus('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md').then((data) => {
-  //   expect(data).toEqual(returnedData);
-  //   done();
-  // }));
 });
 
 describe('stats', () => {
@@ -338,13 +286,6 @@ describe('mdlinks', () => {
       file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
     },
   ];
-  // const returnedDataCatch = [{
-  //   link: 'xxxxxxx',
-  //   text: '[Pill de recursión - repositorio]',
-  //   file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
-  //   message: 'Error: Invalid Link',
-  // },
-  // ];
   const returnedData = [
     {
       link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
@@ -378,11 +319,6 @@ describe('mdlinks', () => {
   it('Should be a function ', () => {
     expect(typeof mdlinks).toBe('function');
   });
-
   it('Should return an array of links with text and path if Validate is False', () => expect(mdlinks('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md', { validate: false })).resolves.toEqual(returnedData2));
   it('Should return an array of links with OK status if Validate is True', () => expect(mdlinks('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md', { validate: true })).resolves.toEqual(returnedData));
-  // it('Should return an array of links with OK status if Validate is True', (done) => mdlinks('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md', true).then((data) => {
-  //   expect(data).toEqual(returnedData);
-  //   done();
-  // }));
 });
