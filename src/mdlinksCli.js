@@ -5,15 +5,21 @@ const validate = require('../src/validate.js');
 const cliFunction = (path, option1 /* option2 */) => {
   let finalResult;
   if (option1 === '--validate') {
-    finalResult = mdlinks(path, { validate: true }).then((res) => console.log(res));
+    finalResult = mdlinks(path, { validate: true }).then((res) => {
+      res.forEach((ele) => {
+        const string = `${ele.file} ${ele.link} ${ele.status} ${ele.message}`;
+      console.log(string);
+        return string;
+      });
+    });
   } else if (option1 === '--stats') {
-    finalResult = mdlinks(path, { validate: true }).then((res) => /* console.log(res)  */console.log(validate.stats(res)));
+    finalResult = mdlinks(path, { validate: true }).then((res) => (validate.stats(res)));
   } else if (option1 === null || option1 === undefined) {
     finalResult = mdlinks(path, { validate: false }).then((res) => console.log(res));
   }
   return finalResult;
 };
-console.log(cliFunction('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md','--validate'));
+console.log(cliFunction('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md', '--stats'));
 /*
 mdLinks("./some/example.md")
   .then(links => {
