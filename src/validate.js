@@ -16,7 +16,7 @@ const verifyLinkStatus = (path) => {
       }
       return newObj;
     }).catch(() => {
-      newObj = { ...element, message: 'Error: Invalid Link' };
+      newObj = { ...element, message: 'Error: Invalid Link', status: 'Invalid' };
       return newObj;
     }));
   });
