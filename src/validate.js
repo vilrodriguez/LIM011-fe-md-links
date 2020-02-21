@@ -23,26 +23,12 @@ const verifyLinkStatus = (path) => {
   return Promise.all(newArray);
 };
 
-// console.log(verifyLinkStatus('/home/
-// vilmango/Documents/LIM011-fe-md-links/prueba/aaskjdhajkssak.md')
-// .then((res) => console.log('asasdas', res)).catch((e) => console.log(e)));
-
-
 const stats = (obj) => {
   const allLinks = obj.map((element) => element.link);
   const links = allLinks.length;
   const uniqueLinks = [...new Set(allLinks)].length;
   return `Total Links in file: ${links} \nUnique Links: ${uniqueLinks}`;
 };
-
-// const validateBrokenLinks = (obj) => {
-//   const allLinks = obj.map((element) => element.link);
-//   const links = allLinks.length;
-//   const uniqueLinks = [...new Set(allLinks)].length;
-//   const invalidLinks = obj.filter((element) => element.message === 'Fail');
-//   const broken = invalidLinks.length;
-//   return `Total Links in file: ${links} \nUnique Links: ${uniqueLinks} \nBroken: ${broken}`;
-// };
 const validateBrokenLinks = (obj) => {
   const allLinks = obj.map((element) => element.link);
   const links = allLinks.length;
@@ -51,7 +37,6 @@ const validateBrokenLinks = (obj) => {
   const broken = invalidLinks.length;
   return `Total Links in file: ${links} \nUnique Links: ${uniqueLinks} \nBroken: ${broken}`;
 };
-
 
 const validate = {
   verifyLinkStatus,
