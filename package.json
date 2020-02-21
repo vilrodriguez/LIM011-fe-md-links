@@ -2,7 +2,7 @@
   "name": "lim011-fe-md-links",
   "version": "1.0.0",
   "description": "Node Library that searchs and validates links in markup files ",
-  "main": "index.js",
+  "main": "mdlinks.js",
   "scripts": {
     "test": "jest --coverage"
   },
@@ -34,5 +34,8 @@
     "fetch-mock": "^9.0.0-beta.2",
     "htmlhint": "^0.11.0",
     "node-fetch": "^2.6.0"
+  },
+  "bin": {
+    "md-links": "./src/cli.js"
   }
 }

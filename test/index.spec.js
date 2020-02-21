@@ -2,6 +2,7 @@ jest.mock('node-fetch');
 const functions = require('../src/index.js');
 const validate = require('../src/validate.js');
 const mdlinks = require('../src/mdlinks.js');
+const cliFunction = require('../src/mdlinksCli.js');
 
 describe('resolveExistingPathToAbsolute', () => {
   const relativePath = 'README.md';
@@ -98,21 +99,7 @@ describe('readMdFile', () => {
       .toStrictEqual(text);
   });
 });
-describe('getLinksFromString', () => {
-  const text = `Esto es un texto de prueba :3
-- [Pill de recursión - video](https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s)
-- [Pill de recursión - repositorio](https://github.com/merunga/pildora-recursion)`;
-  const links = ['[Pill de recursión - video](https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s)',
-    '[Pill de recursión - repositorio](https://github.com/merunga/pildora-recursion)',
-  ];
-  it('Should be a function', () => {
-    expect(typeof functions.getLinksFromString).toBe('function');
-  });
-  it('Should return an array of links found in the md file', () => {
-    expect(functions.getLinksFromString(text))
-      .toEqual(links);
-  });
-});
+
 describe('returnLinks', () => {
   const obj = [
     {
@@ -190,6 +177,7 @@ describe('verifyLinkStatus', () => {
       text: '[Pill de recursión - repositorio]',
       file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
       message: 'Error: Invalid Link',
+      status: 'Invalid',
     },
   ];
 
@@ -313,13 +301,61 @@ describe('mdlinks', () => {
       text: '[Pill de recursión - repositorio]',
       file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
       message: 'Error: Invalid Link',
+      status: 'Invalid',
     },
   ];
 
   it('Should be a function ', () => {
     expect(typeof mdlinks).toBe('function');
   });
-
   it('Should return an array of links with text and path if Validate is False', () => expect(mdlinks('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md', { validate: false })).resolves.toEqual(returnedData2));
   it('Should return an array of links with OK status if Validate is True', () => expect(mdlinks('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md', { validate: true })).resolves.toEqual(returnedData));
+});
+
+describe('cliFunction', () => {
+  it('Should be a function', () => {
+    expect(typeof cliFunction).toBe('function');
+  });
+  const path = '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md';
+  const returnedData = `/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s [Pill de recursión - video] OK 200
+/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s [Pill de recursión - video] OK 200
+/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md https://github.com/merunga/pildora-recursin [Pill de recursión - repositorio] Fail 404
+/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md xxxxxxx [Pill de recursión - repositorio] Error: Invalid Link Invalid
+`;
+  const stat = '--stats';
+  const validatee = '--validate';
+  it('Should return a string with validated links if option1 is --validate', (done) => {
+    cliFunction(path, validatee).then((data) => {
+      expect(data).toEqual(returnedData);
+      done();
+    });
+  });
+  it('Should return a string with links# and Unique Links if option1 is --stats', (done) => {
+    const returnedStats = `Total Links in file: 4 
+Unique Links: 3`;
+    cliFunction(path, stat).then((data) => {
+      expect(data).toEqual(returnedStats);
+      done();
+    });
+  });
+  it('Should return a string with links, text and path reference if option1 null or undefined', (done) => {
+    const returned = `/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s [Pill de recursión - video]
+/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s [Pill de recursión - video]
+/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md https://github.com/merunga/pildora-recursin [Pill de recursión - repositorio]
+/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md xxxxxxx [Pill de recursión - repositorio]
+`;
+    cliFunction(path, undefined).then((data) => {
+      expect(data).toEqual(returned);
+      done();
+    });
+  });
+  it('Should return Link #, unique and broken links if options are --validate and --stats', (done) => {
+    const returnedStatValidate = `Total Links in file: 4 
+Unique Links: 3 
+Broken: 2`;
+    cliFunction(path, stat, validatee).then((data) => {
+      expect(data).toEqual(returnedStatValidate);
+      done();
+    });
+  });
 });

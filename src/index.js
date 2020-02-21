@@ -50,10 +50,11 @@ const returnLinks = (filePath) => {
   const newlinksArray = content.flat().map((element) => {
     const url = element.match(/\((.+)\)/gm)[0];
     const cleanLink = url.substring(1, url.length - 1);
+    const finalPath = resolveExistingPathToAbsolute(filePath);
     return {
       link: cleanLink,
       text: element.match(/(\[[^\]]+\])/gm)[0],
-      file: filePath,
+      file: finalPath,
     };
   });
   return newlinksArray;

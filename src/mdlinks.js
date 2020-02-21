@@ -10,17 +10,3 @@ const mdlinks = (path, options) => new Promise((resolve) => {
 });
 
 module.exports = mdlinks;
-// mdlinks('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md', { validate: true }).then((res) => console.log(res));
-
-// const mdlinks = (path, options) => {
-//   new Promise((resolve) => {
-//     if (options.validate === true) {
-//       resolve(validate.verifyLinkStatus(path));
-//     } else {
-//       resolve(
-
-//         returnLinks(arrayOfLinks, path),
-//       );
-//     }
-//   });
-// };

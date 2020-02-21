@@ -1,21 +1,10 @@
-/*
-const mdLinks = require("md-links");
+#!/usr/bin/env node
+const cli = require('../src/mdlinksCli.js');
 
-mdLinks("./some/example.md")
-  .then(links => {
-    // => [{ href, text, file }]
-  })
-  .catch(console.error);
+const path = process.argv[2];
 
-mdLinks("./some/example.md", { validate: true })
-  .then(links => {
-    // => [{ href, text, file, status, ok }]
-  })
-  .catch(console.error);
+const option1 = process.argv[3];
 
-mdLinks("./some/dir")
-  .then(links => {
-    // => [{ href, text, file }]
-  })
-  .catch(console.error);
-  */
+const option2 = process.argv[4];
+
+cli(path, option1, option2).then((response) => console.log(response));
