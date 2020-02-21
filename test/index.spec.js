@@ -180,7 +180,6 @@ describe('verifyLinkStatus', () => {
       status: 'Invalid',
     },
   ];
-
   it('Should be a function', () => {
     expect(typeof validate.verifyLinkStatus).toBe('function');
   });
