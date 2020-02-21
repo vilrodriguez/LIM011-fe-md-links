@@ -39,10 +39,11 @@ const validateBrokenLinks = (obj) => {
   const allLinks = obj.map((element) => element.link);
   const links = allLinks.length;
   const uniqueLinks = [...new Set(allLinks)].length;
-  const invalidLinks = obj.filter((element) => element.message === 'Fail' && element.message === 'Error: Invalid Link');
+  const invalidLinks = obj.filter((element) => element.message === 'Fail');
   const broken = invalidLinks.length;
   return `Total Links in file: ${links} \nUnique Links: ${uniqueLinks} \nBroken: ${broken}`;
 };
+
 
 const validate = {
   verifyLinkStatus,

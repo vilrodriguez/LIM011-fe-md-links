@@ -5,8 +5,9 @@ const validate = require('../src/validate.js');
 // option1 can be --validate and --stats, but option2 only --stats
 const cliFunction = (path, option1, option2) => {
   let finalResult;
-  if (option1 === '--validate' && option2 === '--stats') {
-    finalResult = mdlinks(path, { validate: true }).then((res) => (validate.validateBrokenLinks(res)));
+  if ((option1 === '--validate' && option2 === '--stats') || (option1 === '--stats' && option2 === '--validate')) {
+    finalResult = mdlinks(path, { validate: true })
+      .then((res) => (validate.validateBrokenLinks(res)));
   } else if (option1 === '--validate') {
     finalResult = mdlinks(path, { validate: true }).then((res) => {
       let string = '';
@@ -29,5 +30,4 @@ const cliFunction = (path, option1, option2) => {
   return finalResult;
 };
 
-console.log((cliFunction('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md', '--validate', '--stats')));
 module.exports = cliFunction;
