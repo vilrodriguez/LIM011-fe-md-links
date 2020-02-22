@@ -80,8 +80,8 @@ describe('getFileFromPathOrFolder', () => {
   });
 });
 describe('getMDfilesFromArray', () => {
-  const arrayOfPaths = ['/home/vilmango/Documents/LIM011-fe-md-links/prueba/pato.html', '/home/vilmango/Documents/LIM011-fe-md-links/prueba/prueba.md'];
-  const returnedArray = ['/home/vilmango/Documents/LIM011-fe-md-links/prueba/prueba.md'];
+  const arrayOfPaths = [path.join(process.cwd(), 'testFiles', 'TestRead.md'), path.join(process.cwd(), 'testFiles', 'pato.html'), path.join(process.cwd(), 'testFiles', 'prueba.md')];
+  const returnedArray = [path.join(process.cwd(), 'testFiles', 'TestRead.md'), path.join(process.cwd(), 'testFiles', 'prueba.md')];
   it('Should be a function', () => {
     expect(typeof functions.getMDfilesFromArray).toBe('function');
   });
@@ -100,39 +100,40 @@ describe('readMdFile', () => {
     expect(typeof functions.readMdFile).toBe('function');
   });
   it('Should read a .md file and return its content as a string', () => {
-    expect(functions.readMdFile('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'))
+    expect(functions.readMdFile(path.join(process.cwd(), 'testFiles', 'TestRead.md')))
       .toStrictEqual(text);
   });
 });
 
 describe('returnLinks', () => {
+  const route = path.join(process.cwd(), 'testFiles', 'TestRead.md');
   const obj = [
     {
       link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
       text: '[Pill de recursión - video]',
-      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      file: route,
     },
     {
       link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
       text: '[Pill de recursión - video]',
-      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      file: route,
     },
     {
       link: 'https://github.com/merunga/pildora-recursin',
       text: '[Pill de recursión - repositorio]',
-      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      file: route,
     },
     {
       link: 'xxxxxxx',
       text: '[Pill de recursión - repositorio]',
-      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      file: route,
     },
   ];
   it('Should be a function', () => {
     expect(typeof functions.returnLinks).toBe('function');
   });
   it('Should return an array of element with href/text/file', () => {
-    expect(functions.returnLinks('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md'))
+    expect(functions.returnLinks(route))
       .toEqual(obj);
   });
 });
