@@ -7,11 +7,11 @@ const cliFunction = require('../src/mdlinksCli.js');
 
 
 // path.join(process.cwd(), 'xx');
+const relativePath = 'README.md';
+const absolutePath = path.join(process.cwd(), 'README.md');
+const badPath = path.join(process.cwd(), 'badPath', 'README.md');
+const folderPath = path.join(process.cwd(), 'src');
 describe('resolveExistingPathToAbsolute', () => {
-  const relativePath = 'README.md';
-  const absolutePath = path.join(process.cwd(), 'README.md');
-  const badPath = path.join(process.cwd(),'badPath', 'README.md');
-
   it('Should be a function', () => {
     expect(typeof functions.resolveExistingPathToAbsolute).toBe('function');
   });
@@ -31,10 +31,10 @@ describe('isAbsolutePathaFile', () => {
     expect(typeof functions.isAbsolutePathaFile).toBe('function');
   });
   it('Should return TRUE if the path is a File', () => {
-    expect(functions.isAbsolutePathaFile('/home/vilmango/Documents/LIM011-fe-md-links/package.json')).toBe(true);
+    expect(functions.isAbsolutePathaFile(absolutePath)).toBe(true);
   });
   it('Should return FALSE if the path is not a File', () => {
-    expect(functions.isAbsolutePathaFile('/home/vilmango/Documents/LIM011-fe-md-links')).toBe(false);
+    expect(functions.isAbsolutePathaFile(folderPath)).toBe(false);
   });
 });
 describe('isAbsolutePathaFolder', () => {
@@ -42,10 +42,10 @@ describe('isAbsolutePathaFolder', () => {
     expect(typeof functions.isAbsolutePathaFolder).toBe('function');
   });
   it('Should return FALSE if the path is a File', () => {
-    expect(functions.isAbsolutePathaFolder('/home/vilmango/Documents/LIM011-fe-md-links/package.json')).toBe(false);
+    expect(functions.isAbsolutePathaFolder(absolutePath)).toBe(false);
   });
   it('Should return TRUE if the path is a Folder', () => {
-    expect(functions.isAbsolutePathaFolder('/home/vilmango/Documents/LIM011-fe-md-links')).toBe(true);
+    expect(functions.isAbsolutePathaFolder(folderPath)).toBe(true);
   });
 });
 
@@ -53,17 +53,19 @@ describe('getFilesInFolder', () => {
   it('Should be a function', () => {
     expect(typeof functions.getFilesInFolder).toBe('function');
   });
+  
   it('Should return an array with files in folder', () => {
-    expect(functions.getFilesInFolder('/home/vilmango/Documents/LIM011-fe-md-links/prueba/'))
-      .toEqual(['pato.html', 'prueba.md']);
+    expect(functions.getFilesInFolder(path.join(process.cwd(), 'testFiles')))
+      .toEqual(['TestRead.md', 'pato.html', 'prueba.md']);
   });
 });
 
 describe('getFileFromPathOrFolder', () => {
-  const pathWithMDFile = '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md';
-  const pathWithFolder = '/home/vilmango/Documents/LIM011-fe-md-links/prueba';
+  const pathWithMDFile = path.join(process.cwd(), 'testFiles', 'TestRead.md');
+  const pathWithFolder = path.join(process.cwd(), 'testFiles');
   const arrayWithMDfiles = [
-    '/home/vilmango/Documents/LIM011-fe-md-links/prueba/prueba.md',
+    path.join(process.cwd(), 'testFiles', 'TestRead.md'),
+    path.join(process.cwd(), 'testFiles', 'prueba.md'),
   ];
   it('Should be a function', () => {
     expect(typeof functions.getFileFromPathOrFolder).toBe('function');
@@ -319,7 +321,7 @@ describe('cliFunction', () => {
   it('Should be a function', () => {
     expect(typeof cliFunction).toBe('function');
   });
-  const path = '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md';
+  const pathFile = '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md';
   const returnedData = `/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s [Pill de recursión - video] OK 200
 /home/vilmango/Documents/LIM011-fe-md-links/TestRead.md https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s [Pill de recursión - video] OK 200
 /home/vilmango/Documents/LIM011-fe-md-links/TestRead.md https://github.com/merunga/pildora-recursin [Pill de recursión - repositorio] Fail 404
@@ -328,7 +330,7 @@ describe('cliFunction', () => {
   const stat = '--stats';
   const validatee = '--validate';
   it('Should return a string with validated links if option1 is --validate', (done) => {
-    cliFunction(path, validatee).then((data) => {
+    cliFunction(pathFile, validatee).then((data) => {
       expect(data).toEqual(returnedData);
       done();
     });
@@ -336,7 +338,7 @@ describe('cliFunction', () => {
   it('Should return a string with links# and Unique Links if option1 is --stats', (done) => {
     const returnedStats = `Total Links in file: 4 
 Unique Links: 3`;
-    cliFunction(path, stat).then((data) => {
+    cliFunction(pathFile, stat).then((data) => {
       expect(data).toEqual(returnedStats);
       done();
     });
@@ -347,7 +349,7 @@ Unique Links: 3`;
 /home/vilmango/Documents/LIM011-fe-md-links/TestRead.md https://github.com/merunga/pildora-recursin [Pill de recursión - repositorio]
 /home/vilmango/Documents/LIM011-fe-md-links/TestRead.md xxxxxxx [Pill de recursión - repositorio]
 `;
-    cliFunction(path, undefined).then((data) => {
+    cliFunction(pathFile, undefined).then((data) => {
       expect(data).toEqual(returned);
       done();
     });
@@ -356,7 +358,7 @@ Unique Links: 3`;
     const returnedStatValidate = `Total Links in file: 4 
 Unique Links: 3 
 Broken: 2`;
-    cliFunction(path, stat, validatee).then((data) => {
+    cliFunction(pathFile, stat, validatee).then((data) => {
       expect(data).toEqual(returnedStatValidate);
       done();
     });
