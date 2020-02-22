@@ -1,13 +1,16 @@
 jest.mock('node-fetch');
+const path = require('path');
 const functions = require('../src/index.js');
 const validate = require('../src/validate.js');
 const mdlinks = require('../src/mdlinks.js');
 const cliFunction = require('../src/mdlinksCli.js');
 
+
+// path.join(process.cwd(), 'xx');
 describe('resolveExistingPathToAbsolute', () => {
   const relativePath = 'README.md';
-  const absolutePath = '/home/vilmango/Documents/LIM011-fe-md-links/README.md';
-  const badPath = '/home/vilmango/Documents/LIM011-felinks/README.md';
+  const absolutePath = path.join(process.cwd(), 'README.md');
+  const badPath = path.join(process.cwd(),'badPath', 'README.md');
 
   it('Should be a function', () => {
     expect(typeof functions.resolveExistingPathToAbsolute).toBe('function');

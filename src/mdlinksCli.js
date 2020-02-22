@@ -1,5 +1,4 @@
 
-// const fs = require('fs');
 const mdlinks = require('../src/mdlinks.js');
 const validate = require('../src/validate.js');
 
