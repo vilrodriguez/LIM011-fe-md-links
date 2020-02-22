@@ -104,9 +104,9 @@ describe('readMdFile', () => {
       .toStrictEqual(text);
   });
 });
-
+const route = path.join(process.cwd(), 'testFiles', 'TestRead.md');
 describe('returnLinks', () => {
-  const route = path.join(process.cwd(), 'testFiles', 'TestRead.md');
+
   const obj = [
     {
       link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
@@ -160,28 +160,28 @@ describe('verifyLinkStatus', () => {
     {
       link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
       text: '[Pill de recursión - video]',
-      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      file: route,
       status: 200,
       message: 'OK',
     },
     {
       link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
       text: '[Pill de recursión - video]',
-      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      file: route,
       status: 200,
       message: 'OK',
     },
     {
       link: 'https://github.com/merunga/pildora-recursin',
       text: '[Pill de recursión - repositorio]',
-      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      file: route,
       status: 404,
       message: 'Fail',
     },
     {
       link: 'xxxxxxx',
       text: '[Pill de recursión - repositorio]',
-      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      file: route,
       message: 'Error: Invalid Link',
       status: 'Invalid',
     },
@@ -190,27 +190,27 @@ describe('verifyLinkStatus', () => {
   it('Should be a function', () => {
     expect(typeof validate.verifyLinkStatus).toBe('function');
   });
-  it('Should return an object indicating the status of the HTTP request if valid or invalid ', (done) => validate.verifyLinkStatus('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md').then((data) => {
+  it('Should return an object indicating the status of the HTTP request if valid or invalid ', (done) => validate.verifyLinkStatus(route).then((data) => {
     expect(data).toEqual(returnedData);
     done();
   }));
 });
-
+// const route = path.join(process.cwd(), 'testFiles', 'TestRead.md');
 describe('stats', () => {
   const obj = [{
     link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
     text: '[Pill de recursión - video]',
-    file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+    file: route,
   },
   {
     link: 'https://github.com/merunga/pildora-recursin',
     text: '[Pill de recursión - repositorio]',
-    file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+    file: route,
   },
   {
     link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
     text: '[Pill de recursión - video]',
-    file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+    file: route,
   }];
   const returnedStats = `Total Links in file: 3 
 Unique Links: 2`;
@@ -227,21 +227,21 @@ describe('validateBrokenLinks', () => {
     {
       link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
       text: '[Pill de recursión - video]',
-      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      file: route,
       status: 200,
       message: 'OK',
     },
     {
       link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
       text: '[Pill de recursión - video]',
-      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      file: route,
       status: 200,
       message: 'OK',
     },
     {
       link: 'https://github.com/merunga/pildora-recursin',
       text: '[Pill de recursión - repositorio]',
-      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      file: route,
       status: 404,
       message: 'Fail',
     },
@@ -262,50 +262,50 @@ describe('mdlinks', () => {
     {
       link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
       text: '[Pill de recursión - video]',
-      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      file: route,
     },
     {
       link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
       text: '[Pill de recursión - video]',
-      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      file: route,
     },
     {
       link: 'https://github.com/merunga/pildora-recursin',
       text: '[Pill de recursión - repositorio]',
-      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      file: route,
     },
     {
       link: 'xxxxxxx',
       text: '[Pill de recursión - repositorio]',
-      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      file: route,
     },
   ];
   const returnedData = [
     {
       link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
       text: '[Pill de recursión - video]',
-      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      file: route,
       status: 200,
       message: 'OK',
     },
     {
       link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
       text: '[Pill de recursión - video]',
-      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      file: route,
       status: 200,
       message: 'OK',
     },
     {
       link: 'https://github.com/merunga/pildora-recursin',
       text: '[Pill de recursión - repositorio]',
-      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      file: route,
       status: 404,
       message: 'Fail',
     },
     {
       link: 'xxxxxxx',
       text: '[Pill de recursión - repositorio]',
-      file: '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md',
+      file: route,
       message: 'Error: Invalid Link',
       status: 'Invalid',
     },
@@ -314,19 +314,19 @@ describe('mdlinks', () => {
   it('Should be a function ', () => {
     expect(typeof mdlinks).toBe('function');
   });
-  it('Should return an array of links with text and path if Validate is False', () => expect(mdlinks('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md', { validate: false })).resolves.toEqual(returnedData2));
-  it('Should return an array of links with OK status if Validate is True', () => expect(mdlinks('/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md', { validate: true })).resolves.toEqual(returnedData));
+  it('Should return an array of links with text and path if Validate is False', () => expect(mdlinks(route, { validate: false })).resolves.toEqual(returnedData2));
+  it('Should return an array of links with OK status if Validate is True', () => expect(mdlinks(route, { validate: true })).resolves.toEqual(returnedData));
 });
 
 describe('cliFunction', () => {
   it('Should be a function', () => {
     expect(typeof cliFunction).toBe('function');
   });
-  const pathFile = '/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md';
-  const returnedData = `/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s [Pill de recursión - video] OK 200
-/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s [Pill de recursión - video] OK 200
-/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md https://github.com/merunga/pildora-recursin [Pill de recursión - repositorio] Fail 404
-/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md xxxxxxx [Pill de recursión - repositorio] Error: Invalid Link Invalid
+  const pathFile = route;
+  const returnedData = `${route} https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s [Pill de recursión - video] OK 200
+${route} https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s [Pill de recursión - video] OK 200
+${route} https://github.com/merunga/pildora-recursin [Pill de recursión - repositorio] Fail 404
+${route} xxxxxxx [Pill de recursión - repositorio] Error: Invalid Link Invalid
 `;
   const stat = '--stats';
   const validatee = '--validate';
@@ -345,10 +345,10 @@ Unique Links: 3`;
     });
   });
   it('Should return a string with links, text and path reference if option1 null or undefined', (done) => {
-    const returned = `/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s [Pill de recursión - video]
-/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s [Pill de recursión - video]
-/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md https://github.com/merunga/pildora-recursin [Pill de recursión - repositorio]
-/home/vilmango/Documents/LIM011-fe-md-links/TestRead.md xxxxxxx [Pill de recursión - repositorio]
+    const returned = `${route} https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s [Pill de recursión - video]
+${route} https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s [Pill de recursión - video]
+${route} https://github.com/merunga/pildora-recursin [Pill de recursión - repositorio]
+${route} xxxxxxx [Pill de recursión - repositorio]
 `;
     cliFunction(pathFile, undefined).then((data) => {
       expect(data).toEqual(returned);
