@@ -53,7 +53,7 @@ describe('getFilesInFolder', () => {
   it('Should be a function', () => {
     expect(typeof functions.getFilesInFolder).toBe('function');
   });
-  
+
   it('Should return an array with files in folder', () => {
     expect(functions.getFilesInFolder(path.join(process.cwd(), 'testFiles')))
       .toEqual(['TestRead.md', 'pato.html', 'prueba.md']);
@@ -106,7 +106,6 @@ describe('readMdFile', () => {
 });
 const route = path.join(process.cwd(), 'testFiles', 'TestRead.md');
 describe('returnLinks', () => {
-
   const obj = [
     {
       link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
