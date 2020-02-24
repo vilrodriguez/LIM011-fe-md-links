@@ -18,21 +18,38 @@ const resolveExistingPathToAbsolute = (route) => {
   return 'Path does not exist';
 };
 
+// const getFileFromPathOrFolder = (filePath) => {
+//   const files = resolveExistingPathToAbsolute(filePath);
+//   let arrayFiles = [];
+//   if (isAbsolutePathaFile(files) && path.extname(files) === '.md') {
+//     arrayFiles.push(files);
+//   }
+//   if (isAbsolutePathaFolder(files)) {
+//     getFilesInFolder(files).forEach((element) => {
+//       if (path.extname(element) === '.md') {
+//         arrayFiles = arrayFiles.concat(getFileFromPathOrFolder(path.join(filePath, element)));
+//       }
+//     });
+//   }
+//   return arrayFiles;
+// };
 const getFileFromPathOrFolder = (filePath) => {
   const files = resolveExistingPathToAbsolute(filePath);
   let arrayFiles = [];
   if (isAbsolutePathaFile(files) && path.extname(files) === '.md') {
     arrayFiles.push(files);
-  }
-  if (isAbsolutePathaFolder(files)) {
+  } else if (isAbsolutePathaFolder(files)) {
     getFilesInFolder(files).forEach((element) => {
       if (path.extname(element) === '.md') {
         arrayFiles = arrayFiles.concat(getFileFromPathOrFolder(path.join(filePath, element)));
       }
     });
+  } else {
+    return 'File or path is not a Markdown File';
   }
   return arrayFiles;
 };
+console.log('eee', getFileFromPathOrFolder('./package.json'));
 const readMdFile = (filesPath) => {
   const string = fs.readFileSync(filesPath);
   return string.toString();
