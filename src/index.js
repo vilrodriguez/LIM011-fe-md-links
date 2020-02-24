@@ -10,7 +10,7 @@ const resolveExistingPathToAbsolute = (route) => {
   let newPath;
   if (fs.existsSync(route)) {
     if (path.isAbsolute(route) === true) {
-      return route;
+      return (route);
     }
     newPath = path.resolve(route);
     return newPath;
@@ -18,38 +18,23 @@ const resolveExistingPathToAbsolute = (route) => {
   return 'Path does not exist';
 };
 
-// const getFileFromPathOrFolder = (filePath) => {
-//   const files = resolveExistingPathToAbsolute(filePath);
-//   let arrayFiles = [];
-//   if (isAbsolutePathaFile(files) && path.extname(files) === '.md') {
-//     arrayFiles.push(files);
-//   }
-//   if (isAbsolutePathaFolder(files)) {
-//     getFilesInFolder(files).forEach((element) => {
-//       if (path.extname(element) === '.md') {
-//         arrayFiles = arrayFiles.concat(getFileFromPathOrFolder(path.join(filePath, element)));
-//       }
-//     });
-//   }
-//   return arrayFiles;
-// };
 const getFileFromPathOrFolder = (filePath) => {
   const files = resolveExistingPathToAbsolute(filePath);
   let arrayFiles = [];
   if (isAbsolutePathaFile(files) && path.extname(files) === '.md') {
     arrayFiles.push(files);
-  } else if (isAbsolutePathaFolder(files)) {
-    getFilesInFolder(files).forEach((element) => {
+  }
+  if (isAbsolutePathaFolder(files)) {
+    const folderFiles = getFilesInFolder(files);
+    folderFiles.forEach((element) => {
       if (path.extname(element) === '.md') {
         arrayFiles = arrayFiles.concat(getFileFromPathOrFolder(path.join(filePath, element)));
       }
     });
-  } else {
-    return 'File or path is not a Markdown File';
   }
   return arrayFiles;
 };
-console.log('eee', getFileFromPathOrFolder('./package.json'));
+
 const readMdFile = (filesPath) => {
   const string = fs.readFileSync(filesPath);
   return string.toString();
@@ -88,5 +73,51 @@ const functions = {
   returnLinks,
   readMdFile,
 };
+console.log(getFilesInFolder('/home/vilmango/Documents/LIM011-fe-md-links/testFiles'));
 
 module.exports = functions;
+/* const returnLinks = (filePath) => {
+  console.log('>51 returnLinks ', filePath);
+  const arrayOfFiles = getFileFromPathOrFolder(filePath);
+  console.log('>53 array', arrayOfFiles);
+  const content = arrayOfFiles.map((ele) => {
+    const contentOfFile = readMdFile(ele);
+    const stringArray = getLinksFromString(contentOfFile);
+    return stringArray;
+  });
+  console.log('aaa', content);
+  const newlinksArray = content.flat().map((element) => {
+    const url = element.match(/\((.+)\)/gm)[0];
+    const cleanLink = url.substring(1, url.length - 1);
+    const finalPath = resolveExistingPathToAbsolute(filePath);
+    return {
+      link: cleanLink,
+      text: element.match(/(\[[^\]]+\])/gm)[0],
+      file: finalPath,
+    };
+  });
+  return newlinksArray;
+}; */
+
+/* const getFileFromPathOrFolder = (filePath) => {
+  const files = resolveExistingPathToAbsolute(filePath);
+  console.log('>44 ttt', files);
+  let arrayFiles = [];
+  if (isAbsolutePathaFile(files) && path.extname(files) === '.md') {
+    arrayFiles.push(files);
+    console.log('>29 files', files);
+    console.log('1st return', arrayFiles);
+  } else if (isAbsolutePathaFolder(files)) {
+    getFilesInFolder(files).forEach((element) => {
+      if (path.extname(element) === '.md') {
+        console.log('>5 element', element);
+        arrayFiles = arrayFiles.concat(getFileFromPathOrFolder(path.join(filePath, element)));
+        return arrayFiles;
+      }
+    });
+    console.log('xoxoxox', arrayFiles);
+    return arrayFiles;
+  }
+  console.log('xoxoxox', arrayFiles);
+  return arrayFiles;
+}; */

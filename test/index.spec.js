@@ -5,8 +5,6 @@ const validate = require('../src/validate.js');
 const mdlinks = require('../src/mdlinks.js');
 const cliFunction = require('../src/mdlinksCli.js');
 
-
-// path.join(process.cwd(), 'xx');
 const relativePath = 'README.md';
 const absolutePath = path.join(process.cwd(), 'README.md');
 const badPath = path.join(process.cwd(), 'badPath', 'README.md');
@@ -53,7 +51,7 @@ describe('getFilesInFolder', () => {
   it('Should be a function', () => {
     expect(typeof functions.getFilesInFolder).toBe('function');
   });
-  
+
   it('Should return an array with files in folder', () => {
     expect(functions.getFilesInFolder(path.join(process.cwd(), 'testFiles')))
       .toEqual(['TestRead.md', 'pato.html', 'prueba.md']);
@@ -101,12 +99,11 @@ describe('readMdFile', () => {
   });
   it('Should read a .md file and return its content as a string', () => {
     expect(functions.readMdFile(path.join(process.cwd(), 'testFiles', 'TestRead.md')))
-      .toStrictEqual(text);
+      .toEqual(text);
   });
 });
 const route = path.join(process.cwd(), 'testFiles', 'TestRead.md');
 describe('returnLinks', () => {
-
   const obj = [
     {
       link: 'https://www.youtube.com/watch?v=lPPgY3HLlhQ&t=916s',
@@ -186,7 +183,6 @@ describe('verifyLinkStatus', () => {
       status: 'Invalid',
     },
   ];
-
   it('Should be a function', () => {
     expect(typeof validate.verifyLinkStatus).toBe('function');
   });
