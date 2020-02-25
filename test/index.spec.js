@@ -54,7 +54,7 @@ describe('getFilesInFolder', () => {
 
   it('Should return an array with files in folder', () => {
     expect(functions.getFilesInFolder(path.join(process.cwd(), 'testFiles')))
-      .toEqual(['TestRead.md', 'pato.html', 'prueba.md']);
+      .toEqual(['pato.html', 'prueba.md', 'TestRead.md']);
   });
 });
 
@@ -62,8 +62,8 @@ describe('getFileFromPathOrFolder', () => {
   const pathWithMDFile = path.join(process.cwd(), 'testFiles', 'TestRead.md');
   const pathWithFolder = path.join(process.cwd(), 'testFiles');
   const arrayWithMDfiles = [
-    path.join(process.cwd(), 'testFiles', 'TestRead.md'),
     path.join(process.cwd(), 'testFiles', 'prueba.md'),
+    path.join(process.cwd(), 'testFiles', 'TestRead.md'),
   ];
   it('Should be a function', () => {
     expect(typeof functions.getFileFromPathOrFolder).toBe('function');
@@ -99,7 +99,7 @@ describe('readMdFile', () => {
   });
   it('Should read a .md file and return its content as a string', () => {
     expect(functions.readMdFile(path.join(process.cwd(), 'testFiles', 'TestRead.md')))
-      .toStrictEqual(text);
+      .toEqual(text);
   });
 });
 const route = path.join(process.cwd(), 'testFiles', 'TestRead.md');
