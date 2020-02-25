@@ -17,6 +17,7 @@ const resolveExistingPathToAbsolute = (route) => {
   }
   return 'Path does not exist';
 };
+
 const getFileFromPathOrFolder = (filePath) => {
   const files = resolveExistingPathToAbsolute(filePath);
   let arrayFiles = [];
@@ -72,6 +73,7 @@ const functions = {
   returnLinks,
   readMdFile,
 };
+console.log(getFilesInFolder('/home/vilmango/Documents/LIM011-fe-md-links/testFiles'));
 
 module.exports = functions;
 /* const returnLinks = (filePath) => {
