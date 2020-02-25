@@ -34,7 +34,7 @@ CLI:
 ```
 3.   md-links path --stats: Provee una lista con la cantidad de links en el archivo y sus links únicos.
 ```sh
-    md-links prueba.md --stats
+    md-links prueba.md --stats --validate
   Total Links in file: 3 
   Unique Links: 3
 ```
