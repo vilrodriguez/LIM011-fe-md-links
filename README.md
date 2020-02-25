@@ -8,6 +8,8 @@ Ahorra tu tiempo y usa esta librería en lugar de dar click a todos los vínculo
 ----
 
 ## Instalación
+[Link de npm](https://www.npmjs.com/settings/vilmango/packages)
+
 1. Descargue la libreria
 ```sh
   npm i md-links-validator
