@@ -1,6 +1,6 @@
 {
   "name": "md-links-validator",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Node Library that searchs and validates links in markup files ",
   "main": "src/mdlinks.js",
   "scripts": {
