@@ -1,8 +1,8 @@
 {
   "name": "md-links-validator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Node Library that searchs and validates links in markup files ",
-  "main": "mdlinks.js",
+  "main": "src/mdlinks.js",
   "scripts": {
     "test": "jest --coverage"
   },

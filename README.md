@@ -9,7 +9,7 @@ Ahorra tu tiempo y usa esta librería en lugar de dar click a todos los vínculo
 ## Instalación
 1. Descargue la libreria
 ```sh
-  npm install vilrodriguez/md-links
+  npm i md-links-validator
 ```
 
 2. Instale Node version 11 o superior
