@@ -1,15 +1,27 @@
 # Markdown Links - Validator
 
-Libreria para validar tus links en archivos Markdown. Ahorra tu tiempo y usa esta librería en lugar de dar click a todos los vínculos de tus archivos Markdown.
+Libreria para validar tus links en archivos Markdown desde CLI. 
+Ahorra tu tiempo y usa esta librería en lugar de dar click a todos los vínculos de sus archivos Markdown.
 
 ![deadlink](https://raw.githubusercontent.com/vilrodriguez/LIM011-fe-md-links/master/img/fc%2C550x550%2Cgrass_green.jpg)
 ----
 
 ## Instalación
-
+1. Descargue la libreria
 ```sh
   npm install vilrodriguez/md-links
-  ```
+```
+
+2. Instale Node version 11 o superior
+[Node.js](https://nodejs.org/es/download/)
+
+3. Luego actualice dependencias
+```sh
+  npm link
+```
+
+4. ¡Ya puede usar la librería! :D
+  
 ## Funcionalidad
 CLI:
 ```sh
@@ -18,14 +30,14 @@ CLI:
 
 ### Opciones de uso:
 
-1.   md-links path : Provee una lista de tus links con su text, url y path de origen:
+1.   md-links path : Provee una lista de links con path de origen, url y texto:
 ```sh
     md-links prueba.md 
 ./prueba.md https://github.com/vilrodriguez/ [My repository]
 ./prueba.md https://github.com/vilmango [Google]
 ./prueba.md ww.mreeowwwww.com [This is not good]
 ```
-2.   md-links path --validate: Provee una lista de tus links con su text, url, path de origen, mensaje de validacion y status de llamada HTML:
+2.   md-links path --validate: Provee una lista de links con path de origen, url, texto, mensaje de status y status de llamada HTML:
 ```sh
     md-links prueba.md --validate
 ./prueba.md https://github.com/vilrodriguez/ [My repository] OK 200
@@ -45,17 +57,22 @@ CLI:
   Unique Links: 3
   Broken: 2
 ```
+
 ## Compatibilidad 
 Esta librería funciona en Lubuntu y Windows.
-### Windows: use las rutas con doble ```"\\" ``` para que reconozca la ruta.
-### Instale NODE versión 11 o superior.
-### Autor: Vilmarys Rodriguez
+#### Windows: use las rutas con doble ```"\\" ``` para que reconozca la ruta.
+
+#### Autor: Vilmarys Rodriguez. 
+
 
 ## Flujo
 
 ![md-links](https://raw.githubusercontent.com/vilrodriguez/LIM011-fe-md-links/master/img/MD-LINKS%20Laboratoria%20VILMA.png)
 
-## Preámbulo
+
+----------------------------------------------------------------------------------
+
+# Preámbulo
 
 [Markdown](https://es.wikipedia.org/wiki/Markdown) es un lenguaje de marcado
 ligero muy popular entre developers. Es usado en muchísimas plataformas que
