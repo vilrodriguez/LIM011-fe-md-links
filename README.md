@@ -59,7 +59,8 @@ CLI:
 ```
 
 ## Compatibilidad 
-Esta librería funciona en Lubuntu y Windows.
+
+Esta librería funciona en Linux y Windows.
 #### Windows: use las rutas con doble ```"\\" ``` para que reconozca la ruta.
 
 #### Autor: Vilmarys Rodriguez. 
