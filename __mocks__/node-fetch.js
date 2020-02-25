@@ -10,4 +10,3 @@ fetchMock.mock('https://github.com/merunga/pildora-recursin', 404);
 fetchMock.mock('xxxxxxx', { throws: new TypeError('Failed to fetch') });
 
 module.exports = fetchMock;
-

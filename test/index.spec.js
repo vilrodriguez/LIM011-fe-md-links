@@ -1,4 +1,4 @@
-jest.mock('node-fetch');
+// jest.mock('node-fetch');
 const path = require('path');
 const functions = require('../src/index.js');
 const validate = require('../src/validate.js');
@@ -87,8 +87,6 @@ describe('getMDfilesFromArray', () => {
     expect(functions.getMDfilesFromArray(arrayOfPaths)).toEqual(returnedArray);
   });
 });
-
-
 
 describe('readMdFile', () => {
   const text = `Esto es un texto de prueba :3
