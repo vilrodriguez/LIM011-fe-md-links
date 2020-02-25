@@ -1,5 +1,10 @@
-# Markdown Links
+# Markdown Links - Validator
+Libreria de node par validar tus links validos, rotos de tus archivos MarkDown
+----
+#### English
+Node Library to validate your links in your Markdown files
 
+## Instalación  -- Installation 
 ## Preámbulo
 
 [Markdown](https://es.wikipedia.org/wiki/Markdown) es un lenguaje de marcado
