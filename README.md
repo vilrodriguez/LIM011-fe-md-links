@@ -4,7 +4,7 @@ Libreria para validar tus links en archivos Markdown desde CLI.
 Ahorra tu tiempo y usa esta librería en lugar de dar click a todos los vínculos de sus archivos Markdown.
 
 ![deadlink](https://raw.githubusercontent.com/vilrodriguez/LIM011-fe-md-links/master/img/fc%2C550x550%2Cgrass_green.jpg)
-Artist: https://www.instagram.com/italiux/
+#### Artist: https://www.instagram.com/italiux/
 ----
 
 ## Instalación
