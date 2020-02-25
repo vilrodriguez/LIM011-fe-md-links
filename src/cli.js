@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// debugger
+
 const cli = require('./mdlinksCli');
 
 const path = process.argv[2];

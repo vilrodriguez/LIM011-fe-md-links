@@ -1,5 +1,5 @@
 {
-  "name": "Md-Links-Validator",
+  "name": "md-links-validator",
   "version": "1.0.0",
   "description": "Node Library that searchs and validates links in markup files ",
   "main": "mdlinks.js",
