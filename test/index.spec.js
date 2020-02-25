@@ -5,8 +5,6 @@ const validate = require('../src/validate.js');
 const mdlinks = require('../src/mdlinks.js');
 const cliFunction = require('../src/mdlinksCli.js');
 
-
-// path.join(process.cwd(), 'xx');
 const relativePath = 'README.md';
 const absolutePath = path.join(process.cwd(), 'README.md');
 const badPath = path.join(process.cwd(), 'badPath', 'README.md');

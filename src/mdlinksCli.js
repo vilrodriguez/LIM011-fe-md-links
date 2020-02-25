@@ -1,6 +1,6 @@
-
-const mdlinks = require('../src/mdlinks.js');
-const validate = require('../src/validate.js');
+// debugger
+const mdlinks = require('./mdlinks.js');
+const validate = require('./validate.js');
 
 const cliFunction = (path, option1, option2) => {
   let finalResult;

@@ -1,3 +1,4 @@
+// debugger
 const fetch = require('node-fetch');
 const functions = require('../src/index.js');
 
@@ -22,6 +23,7 @@ const verifyLinkStatus = (path) => {
   });
   return Promise.all(newArray);
 };
+
 
 const stats = (obj) => {
   const allLinks = obj.map((element) => element.link);

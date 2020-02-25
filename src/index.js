@@ -1,7 +1,9 @@
 const path = require('path');
 const fs = require('fs');
 
-const isAbsolutePathaFile = (filePath) => fs.lstatSync(filePath).isFile();
+const isAbsolutePathaFile = (filePath) => {
+  console.log(filePath);
+  fs.lstatSync(filePath).isFile()};
 const isAbsolutePathaFolder = (filePath) => fs.lstatSync(filePath).isDirectory();
 const getFilesInFolder = (filePath) => fs.readdirSync(filePath);
 const getMDfilesFromArray = (fileArray) => fileArray.filter((element) => path.extname(element) === '.md');
