@@ -73,9 +73,9 @@ const functions = {
   returnLinks,
   readMdFile,
 };
-console.log(getFilesInFolder('/home/vilmango/Documents/LIM011-fe-md-links/testFiles'));
 
 module.exports = functions;
+
 /* const returnLinks = (filePath) => {
   console.log('>51 returnLinks ', filePath);
   const arrayOfFiles = getFileFromPathOrFolder(filePath);

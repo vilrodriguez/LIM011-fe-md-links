@@ -1,4 +1,3 @@
-// debugger
 
 const functions = require('./index.js');
 const validate = require('./validate.js');
