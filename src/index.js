@@ -61,8 +61,6 @@ const returnLinks = (filePath) => {
   return newlinksArray;
 };
 
-
-
 const functions = {
   resolveExistingPathToAbsolute,
   isAbsolutePathaFile,
